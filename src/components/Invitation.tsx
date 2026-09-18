@@ -171,7 +171,7 @@ function InviteCard() {
 
       <div className="relative px-5 pb-8 pt-7 sm:px-8 sm:pb-10 sm:pt-8">
         <p className="text-center text-[13px] font-semibold uppercase tracking-[0.3em] text-gold-dark">
-          Estás invitada · invitado
+          Estás invitada
         </p>
 
         <h2 className="mt-2 text-center font-serif text-sm font-medium uppercase tracking-[0.35em] text-ink sm:mt-2.5">
@@ -187,10 +187,6 @@ function InviteCard() {
           <div className="absolute inset-0 bg-gradient-to-t from-ivory/70 via-transparent to-transparent" />
         </div>
 
-        <p className="mt-6 text-center font-display text-xl italic text-ink-soft">
-          Giuliana espera a
-        </p>
-
         <h1 className="foil-text mt-1 text-center font-script text-6xl leading-none sm:text-7xl md:text-8xl">
           Dante
         </h1>
@@ -198,7 +194,7 @@ function InviteCard() {
         <Flourish className="mx-auto mt-3 h-6 w-40 text-gold sm:mt-4 sm:h-7 sm:w-48" />
 
         <p className="mx-auto mt-4 max-w-xs text-center font-display text-xl leading-relaxed text-ink sm:mt-5 sm:text-xl">
-          Nace en primavera. Queremos festejarlo con vos.
+          Nace en diciembre. Queremos festejarlo con vos.
         </p>
 
         <div className="mx-auto mt-6 space-y-3 rounded-xl bg-sand/50 p-3 text-center ring-1 ring-gold/20 sm:mt-8 sm:space-y-4 sm:rounded-2xl sm:p-4">
@@ -582,8 +578,8 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Por qué nos juntamos</h2>
           <p className="mt-3 font-display text-xl leading-relaxed text-ink-soft sm:mt-4 sm:text-xl">
-            Giuliana está por conocer a Dante. Antes de que llegue, quiere juntar
-            a la gente que más quiere.
+            Estoy por conocer a Dante. Antes de que llegue, quiero juntar a la
+            gente que más quiero.
           </p>
         </div>
       </section>
@@ -605,9 +601,6 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
             onClick={() => scrollToSection("seccion-mapa")}
           >
             Juan B. Justo 8917. Si te perdés, escribile a Giuliana.
-          </Detail>
-          <Detail icon="👗" title="Cómo venir">
-            Vení cómoda. En algún momento sacamos una foto de todos.
           </Detail>
           <Detail
             icon="🎁"
@@ -667,7 +660,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8 sm:gap-3">
           {[
-            "Ropa 0 a 3 meses",
+            "Ropa 3 meses en adelante",
             "Pañales",
             "Mantas",
             "Juguetes",
