@@ -503,43 +503,30 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
   return (
     <nav
       aria-label="Acciones rápidas del Baby Shower"
-      className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory/95 px-3 py-2 shadow-xl shadow-ink/15 backdrop-blur-md max-w-[96vw] select-none animate-fade-up pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+      className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory/95 px-3 py-2 shadow-xl shadow-ink/15 backdrop-blur-md max-w-[96vw] select-none animate-fade-up pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
       <button
         type="button"
         onClick={() => scrollToSection("confirmar-asistencia")}
-        className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
+        className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-4 py-2.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
       >
         <span>💌</span>
-        <span className="hidden sm:inline">Confirmar asistencia</span>
-        <span className="sm:hidden">Confirmar</span>
+        <span>Confirmar asistencia</span>
       </button>
 
       <button
         type="button"
         onClick={() => scrollToSection("muro-de-amor")}
-        className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
+        className="flex items-center gap-1.5 rounded-full bg-sand/60 px-4 py-2.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
       >
         <span>✨</span>
-        <span className="hidden sm:inline">Muro de amor</span>
-        <span className="sm:hidden">Muro</span>
+        <span>Muro de amor</span>
         {totalMessages > 0 && (
           <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[11px] font-bold text-gold-dark">
             {totalMessages}
           </span>
         )}
       </button>
-
-      <a
-        href={whatsappUrl()}
-        target="_blank"
-        rel="noreferrer"
-        className="flex items-center gap-1.5 rounded-full bg-[#25D366] px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
-      >
-        <span>💬</span>
-        <span className="hidden sm:inline">Compartir por WhatsApp</span>
-        <span className="sm:hidden">Compartir</span>
-      </a>
     </nav>
   );
 }
