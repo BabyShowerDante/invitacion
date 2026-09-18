@@ -21,10 +21,9 @@ export default function Envelope({ opening, onOpen }: Props) {
         onClick={onOpen}
         disabled={opening}
         aria-label="Abrir la invitación"
-        className={`group relative cursor-pointer border-0 bg-transparent p-0 select-none active:scale-[0.99] transition-transform ${
+        className={`group relative cursor-pointer border-0 bg-transparent p-0 select-none ${
           opening ? "" : "animate-envelope"
         }`}
-        style={{ perspective: 1200 }}
       >
         <div
           className="relative"
@@ -32,6 +31,7 @@ export default function Envelope({ opening, onOpen }: Props) {
             width: "min(92vw, 420px)",
             height: "min(60vw, 260px)",
             minHeight: "200px",
+            perspective: "1200px",
           }}
         >
           {/* 1. Back of envelope */}
@@ -44,19 +44,18 @@ export default function Envelope({ opening, onOpen }: Props) {
             }}
           />
 
-          {/* 2. Letter inside - completely tucked inside, reveals and slides up when opened */}
+          {/* 2. Letter inside - slides up when opened */}
           <div
-            className="absolute overflow-hidden rounded-md bg-ivory shadow-md"
+            className={`absolute overflow-hidden rounded-md bg-ivory shadow-md ${
+              opening ? "env-letter-rise" : ""
+            }`}
             style={{
               left: "6%",
               right: "6%",
               top: "14%",
               bottom: "12%",
               zIndex: opening ? 5 : 1,
-              opacity: opening ? 1 : 0,
-              transform: opening ? "translate3d(0, -68%, 0)" : "translate3d(0, 0, 0)",
-              transition: "transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s, opacity 0.3s ease 0.3s",
-              willChange: "transform, opacity",
+              opacity: opening ? undefined : 0,
             }}
           >
             <div className="gold-line mt-3" />
@@ -90,27 +89,24 @@ export default function Envelope({ opening, onOpen }: Props) {
             }}
           />
 
-          {/* 5. Top Flap: overlaps front pocket completely when closed, flips open 180deg */}
+          {/* 5. Top Flap: flips open 180deg via CSS animation class */}
           <div
-            className="absolute left-0 right-0 top-0 z-[3] rounded-t-[12px]"
+            className={`absolute left-0 right-0 top-0 z-[3] rounded-t-[12px] ${
+              opening ? "env-flap-open" : ""
+            }`}
             style={{
               height: "64%",
               transformOrigin: "top center",
-              background: opening
-                ? "linear-gradient(180deg, #e0c196 0%, #f3e0c2 100%)"
-                : "linear-gradient(180deg, #f8ead0 0%, #ebcfa8 100%)",
+              background: "linear-gradient(180deg, #f8ead0 0%, #ebcfa8 100%)",
               clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-              transform: opening ? "rotateX(180deg)" : "rotateX(0deg)",
-              transition: "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.05s",
               boxShadow: opening ? "none" : "0 8px 16px rgba(90,70,56,0.16)",
-              willChange: "transform",
             }}
           />
 
           {/* 6. Postage stamp */}
           <div
-            className={`absolute right-3 top-3 z-[6] rotate-6 border-2 border-dashed border-gold-dark/40 bg-ivory p-[3px] shadow-sm transition-opacity duration-300 ${
-              opening ? "opacity-0" : "opacity-100"
+            className={`absolute right-3 top-3 z-[6] rotate-6 border-2 border-dashed border-gold-dark/40 bg-ivory p-[3px] shadow-sm ${
+              opening ? "env-fade-out" : ""
             }`}
             style={{ width: "46px", height: "54px" }}
           >
@@ -123,8 +119,8 @@ export default function Envelope({ opening, onOpen }: Props) {
 
           {/* 7. Address lines */}
           <div
-            className={`absolute bottom-4 left-6 sm:bottom-6 sm:left-8 z-[3] text-left transition-opacity duration-300 max-w-[55%] ${
-              opening ? "opacity-0" : "opacity-100"
+            className={`absolute bottom-4 left-6 sm:bottom-6 sm:left-8 z-[3] text-left max-w-[55%] ${
+              opening ? "env-fade-out" : ""
             }`}
           >
             <p className="font-display text-xs uppercase tracking-[0.22em] text-ink-soft">
@@ -134,18 +130,15 @@ export default function Envelope({ opening, onOpen }: Props) {
             <p className="mt-1 font-display text-sm italic text-ink-soft">De: Giuliana & Dante</p>
           </div>
 
-          {/* 8. Wax seal: centered right over the overlapping flap tip */}
+          {/* 8. Wax seal */}
           <div
-            className="absolute z-[7]"
+            className={`absolute z-[7] ${
+              opening ? "env-seal-burst" : ""
+            }`}
             style={{
               top: "60%",
               left: "50%",
-              opacity: opening ? 0 : 1,
-              transform: opening
-                ? "translate3d(-50%, -70%, 0) scale(1.3)"
-                : "translate3d(-50%, -50%, 0) scale(1)",
-              transition: "opacity 0.28s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1)",
-              willChange: "transform, opacity",
+              transform: "translate3d(-50%, -50%, 0)",
             }}
           >
             <div className="wax-seal relative flex h-[68px] w-[68px] sm:h-[76px] sm:w-[76px] items-center justify-center shadow-lg group-hover:scale-105 active:scale-95 transition-transform">
@@ -163,15 +156,15 @@ export default function Envelope({ opening, onOpen }: Props) {
       </button>
 
       <p
-        className={`mt-6 sm:mt-8 font-display text-lg italic text-ink-soft transition-opacity text-center px-4 duration-300 ${
-          opening ? "opacity-0" : "opacity-100"
+        className={`mt-6 sm:mt-8 font-display text-lg italic text-ink-soft text-center px-4 ${
+          opening ? "env-fade-out" : ""
         }`}
       >
         Tocá el sello de lacre para abrirla
       </p>
       <div
-        className={`mt-1.5 animate-bounce text-rose transition-opacity duration-300 ${
-          opening ? "opacity-0" : "opacity-100"
+        className={`mt-1.5 animate-bounce text-rose ${
+          opening ? "env-fade-out" : ""
         }`}
         aria-hidden
       >
