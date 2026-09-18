@@ -115,13 +115,13 @@ function Countdown() {
       className="mx-auto max-w-lg cursor-pointer group transition-transform active:scale-[0.99]"
       title="Toca para ver el cronograma del día"
     >
-      <p className="mb-4 text-center font-display text-base italic text-ink-soft sm:mb-5 sm:text-lg group-hover:text-ink transition-colors flex items-center justify-center gap-1.5">
+      <p className="mb-4 text-center font-display text-xl italic text-ink-soft sm:mb-5 sm:text-xl group-hover:text-ink transition-colors flex items-center justify-center gap-1.5">
         <span>
           {t.done
             ? "¡Hoy es el gran día! Dante ya está listo para los mimos."
             : "Dante cuenta las pataditas que faltan…"}
         </span>
-        <span className="text-xs text-gold opacity-60 group-hover:opacity-100 transition-opacity">↓</span>
+        <span className="text-[13px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↓</span>
       </p>
       <div className="grid grid-cols-4 gap-1.5 sm:gap-3">
         {units.map((u) => (
@@ -132,7 +132,7 @@ function Countdown() {
             <div className="font-serif text-3xl font-semibold text-ink sm:text-4xl">
               {String(u.value).padStart(2, "0")}
             </div>
-            <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-gold-dark">
+            <div className="mt-1 text-[13px] font-semibold uppercase tracking-wider text-gold-dark">
               {u.label}
             </div>
           </div>
@@ -170,7 +170,7 @@ function InviteCard() {
       <CornerOrnament className="-bottom-1 -right-1 h-24 w-24 rotate-180 sm:h-28 sm:w-28" />
 
       <div className="relative px-5 pb-8 pt-7 sm:px-8 sm:pb-10 sm:pt-8">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.3em] text-gold-dark">
+        <p className="text-center text-[13px] font-semibold uppercase tracking-[0.3em] text-gold-dark">
           Estás invitada · invitado
         </p>
 
@@ -197,7 +197,7 @@ function InviteCard() {
 
         <Flourish className="mx-auto mt-3 h-6 w-40 text-gold sm:mt-4 sm:h-7 sm:w-48" />
 
-        <p className="mx-auto mt-4 max-w-xs text-center font-display text-base leading-relaxed text-ink sm:mt-5 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-xs text-center font-display text-xl leading-relaxed text-ink sm:mt-5 sm:text-xl">
           Un principito de primavera que ya quiere conocerte, llenarte de babitas
           y robarte el corazón.
         </p>
@@ -209,15 +209,15 @@ function InviteCard() {
             className="group block w-full rounded-xl p-2.5 transition hover:bg-ivory/80 active:scale-[0.98] cursor-pointer text-center"
             title="Toca para ir a agendar en tu calendario"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark flex items-center justify-center gap-1">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-gold-dark flex items-center justify-center gap-1">
               <span>Cuándo</span>
-              <span className="text-xs text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
+              <span className="text-[13px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
             </p>
             <p className="mt-0.5 font-serif text-base text-ink group-hover:text-gold-dark transition-colors sm:mt-1 sm:text-lg">
               Sábado 10 de octubre
             </p>
-            <p className="font-display text-base text-ink-soft">
-              2026 · 1:00 PM <span className="ml-1 text-sm text-gold underline underline-offset-2 opacity-85 group-hover:opacity-100">Agendar</span>
+            <p className="font-display text-xl text-ink-soft">
+              2026 · 1:00 PM <span className="ml-1 text-lg text-gold underline underline-offset-2 opacity-85 group-hover:opacity-100">Agendar</span>
             </p>
           </button>
 
@@ -229,20 +229,20 @@ function InviteCard() {
             className="group block w-full rounded-xl p-2.5 transition hover:bg-ivory/80 active:scale-[0.98] cursor-pointer text-center"
             title="Toca para ir al mapa de ubicación"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark flex items-center justify-center gap-1">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.2em] text-gold-dark flex items-center justify-center gap-1">
               <span>Dónde</span>
-              <span className="text-xs text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
+              <span className="text-[13px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
             </p>
             <p className="mt-0.5 font-serif text-base text-ink group-hover:text-gold-dark transition-colors sm:mt-1 sm:text-lg">
               Juan B. Justo 8917
             </p>
-            <p className="font-display text-base text-ink-soft">
-              Traé el corazón <span className="ml-1 text-sm text-sky-deep underline underline-offset-2 opacity-85 group-hover:opacity-100">Ver mapa</span>
+            <p className="font-display text-xl text-ink-soft">
+              Traé el corazón <span className="ml-1 text-lg text-sky-deep underline underline-offset-2 opacity-85 group-hover:opacity-100">Ver mapa</span>
             </p>
           </button>
         </div>
 
-        <p className="mt-6 text-center font-display text-base italic text-ink-soft">
+        <p className="mt-6 text-center font-display text-xl italic text-ink-soft">
           “Hay milagros que se celebran con globitos,
           <br />
           facturas y mucho, mucho amor.”
@@ -273,9 +273,9 @@ function Detail({
       <div className="mb-2 text-2xl sm:mb-3">{icon}</div>
       <h3 className="font-serif text-lg text-ink sm:text-xl flex items-center gap-1.5">
         <span>{title}</span>
-        {onClick && <span className="text-xs text-gold opacity-60">↗</span>}
+        {onClick && <span className="text-[13px] text-gold opacity-60">↗</span>}
       </h3>
-      <div className="mt-2 font-display text-base leading-relaxed text-ink-soft">
+      <div className="mt-2 font-display text-xl leading-relaxed text-ink-soft">
         {children}
       </div>
     </div>
@@ -366,13 +366,13 @@ function ConfirmAndGuestbookSection({
         <div className="paper-grain rounded-3xl bg-ivory p-6 shadow-md ring-1 ring-gold/25 sm:p-8">
           <div className="text-center">
             <span className="inline-block text-2xl">💌</span>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
+            <p className="mt-1 text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
               Confirmar asistencia y mensajito
             </p>
             <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
               ¿Venís a celebrar?
             </h2>
-            <p className="mx-auto mt-2 max-w-md font-display text-base italic text-ink-soft sm:text-lg">
+            <p className="mx-auto mt-2 max-w-md font-display text-xl italic text-ink-soft sm:text-xl">
               Dejanos tu nombre y unas palabritas de amor que Dante guardará para siempre en su libro de recuerdos.
             </p>
           </div>
@@ -382,7 +382,7 @@ function ConfirmAndGuestbookSection({
               <p className="font-serif text-lg font-semibold text-ink">
                 ¡Gracias {submittedMessage.name}! ♡
               </p>
-              <p className="mt-1 font-display text-base text-ink-soft">
+              <p className="mt-1 font-display text-xl text-ink-soft">
                 Tu dedicatoria ya brilla en el Muro de Amor más abajo.
               </p>
               <a
@@ -398,7 +398,7 @@ function ConfirmAndGuestbookSection({
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark">
+              <label className="mb-1 block text-sm font-semibold uppercase tracking-[0.2em] text-gold-dark">
                 Tu nombre y apellido *
               </label>
               <input
@@ -411,7 +411,7 @@ function ConfirmAndGuestbookSection({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark">
+              <label className="mb-1 block text-sm font-semibold uppercase tracking-[0.2em] text-gold-dark">
                 Un mensajito de amor para Dante *
               </label>
               <textarea
@@ -438,17 +438,17 @@ function ConfirmAndGuestbookSection({
       <section id="muro-de-amor" className="mx-auto max-w-4xl px-4 scroll-mt-6">
         <div className="text-center">
           <span className="inline-block text-3xl animate-wiggle">✨</span>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
             Libro de recuerdos
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
             Muro de Amor para Dante
           </h2>
-          <p className="mx-auto mt-2 max-w-lg font-display text-base text-ink-soft sm:text-lg">
+          <p className="mx-auto mt-2 max-w-lg font-display text-xl text-ink-soft sm:text-xl">
             Dedicatorias que Dante leerá cuando sea grande para saber cuánto amor lo esperaba desde antes de nacer.
           </p>
 
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-xs sm:text-sm font-semibold text-gold-dark ring-1 ring-gold/30">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-[13px] sm:text-sm font-semibold text-gold-dark ring-1 ring-gold/30">
             <span>💌 {messages.length} {messages.length === 1 ? "dedicatoria de amor" : "dedicatorias de amor"}</span>
           </div>
         </div>
@@ -459,7 +459,7 @@ function ConfirmAndGuestbookSection({
             <p className="mt-2 font-serif text-lg text-ink">
               Aún no hay dedicatorias publicadas
             </p>
-            <p className="mt-1 font-display text-base italic text-ink-soft max-w-sm mx-auto">
+            <p className="mt-1 font-display text-xl italic text-ink-soft max-w-sm mx-auto">
               Sé la primera persona en dejarle una dedicatoria de amor a Dante. Completá el formulario de arriba y tu mensaje aparecerá aquí ♡
             </p>
           </div>
@@ -476,22 +476,22 @@ function ConfirmAndGuestbookSection({
                       <h3 className="font-serif text-lg font-semibold text-ink sm:text-xl">
                         {item.name}
                       </h3>
-                      <span className="text-xs font-display italic text-ink-soft">
+                      <span className="text-[13px] font-display italic text-ink-soft">
                         {item.relativeTime}
                       </span>
                     </div>
 
-                    <span className="rounded-full bg-sky/20 px-3 py-1 text-xs font-semibold text-sky-deep whitespace-nowrap">
+                    <span className="rounded-full bg-sky/20 px-3 py-1 text-[13px] font-semibold text-sky-deep whitespace-nowrap">
                       💙 ¡Confirmó asistencia!
                     </span>
                   </div>
 
-                  <p className="mt-3.5 font-display text-base leading-relaxed text-ink italic">
+                  <p className="mt-3.5 font-display text-xl leading-relaxed text-ink italic">
                     “{item.message}”
                   </p>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end text-xs uppercase tracking-wider text-gold-dark/60">
+                <div className="mt-4 flex items-center justify-end text-[13px] uppercase tracking-wider text-gold-dark/60">
                   <span>Con todo el corazón</span>
                 </div>
               </div>
@@ -513,7 +513,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
         <button
           type="button"
           onClick={() => scrollToSection("confirmar-asistencia")}
-          className="flex flex-1 items-center justify-center gap-1.5 rounded-[20px] bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold leading-snug text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer text-center"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-[20px] bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold leading-snug text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer text-center"
         >
           <span className="shrink-0">💌</span>
           <span>Confirmar y dejar mensajito en el muro</span>
@@ -522,7 +522,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
         <button
           type="button"
           onClick={() => scrollToSection("muro-de-amor")}
-          className="flex shrink-0 items-center justify-center gap-1.5 rounded-[20px] bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold leading-snug text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
+          className="flex shrink-0 items-center justify-center gap-1.5 rounded-[20px] bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold leading-snug text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
         >
           <span>✨</span>
           <span>Muro de amor</span>
@@ -565,7 +565,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
   return (
     <div className="relative z-10 pb-28 sm:pb-32">
       <header className="px-4 pb-4 pt-8 text-center sm:pb-6 sm:pt-10 animate-fade-up">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-dark">
+        <p className="text-[13px] font-semibold uppercase tracking-[0.35em] text-gold-dark">
           Giuliana & Dante
         </p>
         <p className="mt-1 font-script text-3xl text-ink sm:mt-2 sm:text-4xl">Una celebración de amor</p>
@@ -586,16 +586,16 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
           className="h-56 w-full rounded-2xl object-cover shadow-lg ring-4 ring-ivory sm:h-72 sm:rounded-[28px]"
         />
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
             La historia
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Un principito llamado Dante</h2>
-          <p className="mt-3 font-display text-base leading-relaxed text-ink-soft sm:mt-4 sm:text-lg">
+          <p className="mt-3 font-display text-xl leading-relaxed text-ink-soft sm:mt-4 sm:text-xl">
             En plena primavera argentina, cuando todo empieza a florecer, Giuliana
             se prepara para el abrazo más grande de su vida. Dante ya eligió a su
             mamá… y ahora quiere conocerte a vos.
           </p>
-          <p className="mt-2.5 font-display text-base leading-relaxed text-ink-soft sm:mt-3 sm:text-lg">
+          <p className="mt-2.5 font-display text-xl leading-relaxed text-ink-soft sm:mt-3 sm:text-xl">
             Por eso armamos este festejo tierno, divertido y lleno de globitos:
             para celebrarlo entre las personas que más queremos.
           </p>
@@ -646,7 +646,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
 
       <section id="seccion-itinerario" className="mx-auto mt-14 grid max-w-4xl items-center gap-6 px-4 sm:mt-20 sm:gap-8 md:grid-cols-2 scroll-mt-6">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
             El plan
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Cómo va a ser el día</h2>
@@ -658,7 +658,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
                 </span>
                 <span>
                   <span className="block font-serif text-base text-ink sm:text-lg">{item.title}</span>
-                  <span className="font-display text-base text-ink-soft">{item.note}</span>
+                  <span className="font-display text-xl text-ink-soft">{item.note}</span>
                 </span>
               </li>
             ))}
@@ -680,7 +680,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
 
       <section id="seccion-deseos" className="mx-auto mt-14 max-w-3xl px-4 text-center sm:mt-20 scroll-mt-6">
         <h2 className="font-script text-4xl text-ink sm:text-5xl">Si querés mimar a Dante</h2>
-        <p className="mx-auto mt-2 max-w-lg font-display text-base text-ink-soft sm:mt-3 sm:text-lg">
+        <p className="mx-auto mt-2 max-w-lg font-display text-xl text-ink-soft sm:mt-3 sm:text-xl">
           Dante todavía no tiene Instagram, pero sí una mini lista de deseos.
           Cualquier cosa que elijas, va a usarse con mucho amor.
         </p>
@@ -695,7 +695,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
           ].map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-ivory px-4 py-2 font-display text-sm text-ink ring-1 ring-gold/25 shadow-xs"
+              className="rounded-full bg-ivory px-4 py-2 font-display text-lg text-ink ring-1 ring-gold/25 shadow-xs"
             >
               {tag}
             </span>
@@ -705,7 +705,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
 
       <section id="seccion-mapa" className="mx-auto mt-14 max-w-3xl px-4 sm:mt-20 scroll-mt-6">
         <h2 className="text-center font-script text-4xl text-ink sm:text-5xl">Cómo llegar</h2>
-        <p className="mt-1 text-center font-display text-base text-ink-soft sm:mt-2 sm:text-lg">
+        <p className="mt-1 text-center font-display text-xl text-ink-soft sm:mt-2 sm:text-xl">
           Juan B. Justo 8917
         </p>
         <div className="mt-5 overflow-hidden rounded-2xl shadow-lg ring-4 ring-ivory sm:mt-6 sm:rounded-[28px]">
@@ -759,10 +759,10 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
           className="mx-auto h-16 w-16 rounded-full object-cover shadow animate-wiggle sm:h-20 sm:w-20"
         />
         <p className="mt-4 font-script text-3xl text-ink sm:mt-5 sm:text-4xl">Con amor, Giuliana</p>
-        <p className="mt-1 font-display text-base italic text-ink-soft">
+        <p className="mt-1 font-display text-xl italic text-ink-soft">
           y un tal Dante que todavía no habla, pero ya manda besos.
         </p>
-        <p className="mt-5 text-xs font-semibold uppercase tracking-[0.3em] text-gold-dark">
+        <p className="mt-5 text-[13px] font-semibold uppercase tracking-[0.3em] text-gold-dark">
           10 · 10 · 2026
         </p>
       </footer>

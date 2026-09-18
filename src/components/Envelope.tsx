@@ -7,11 +7,11 @@ export default function Envelope({ opening, onOpen }: Props) {
   return (
     <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center px-3 py-6 sm:px-4 sm:py-10">
       <div className="mb-6 text-center sm:mb-8 animate-fade-up">
-        <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.35em] text-gold-dark">
+        <p className="mb-1.5 text-[13px] font-semibold uppercase tracking-[0.35em] text-gold-dark">
           Correo de cigüeña
         </p>
         <h1 className="font-script text-4xl text-ink sm:text-5xl md:text-6xl">Tenés una invitación</h1>
-        <p className="mt-2 font-display text-lg italic text-ink-soft sm:mt-2.5">
+        <p className="mt-2 font-display text-xl italic text-ink-soft sm:mt-2.5">
           De Giuliana, con el corazón a mil.
         </p>
       </div>
@@ -55,11 +55,11 @@ export default function Envelope({ opening, onOpen }: Props) {
           >
             <div className="gold-line mt-3" />
             <div className="px-4 pt-3.5 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-dark">
+              <p className="text-[13px] font-semibold uppercase tracking-[0.35em] text-gold-dark">
                 Baby Shower
               </p>
               <p className="font-script text-4xl leading-none text-ink sm:text-5xl mt-1">Dante</p>
-              <p className="mt-1.5 font-display text-sm italic text-ink-soft">10 de octubre · 2026</p>
+              <p className="mt-1.5 font-display text-lg italic text-ink-soft">10 de octubre · 2026</p>
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export default function Envelope({ opening, onOpen }: Props) {
             style={{ width: "46px", height: "54px" }}
           >
             <div className="flex h-full flex-col items-center justify-center bg-gradient-to-br from-sky/40 to-blush/30">
-              <span className="text-xs font-bold text-gold-dark">✦</span>
+              <span className="text-[13px] font-bold text-gold-dark">✦</span>
               <span className="text-[10px] font-bold tracking-wider text-ink">ARG</span>
               <span className="text-[10px] text-ink-soft">2026</span>
             </div>
@@ -157,11 +157,11 @@ export default function Envelope({ opening, onOpen }: Props) {
               opening ? "env-fade-out" : ""
             }`}
           >
-            <p className="font-display text-xs uppercase tracking-[0.22em] text-ink-soft">
+            <p className="font-display text-[13px] uppercase tracking-[0.22em] text-ink-soft">
               Para
             </p>
             <p className="font-script text-2xl leading-none text-ink sm:text-3xl">Vos, con amor</p>
-            <p className="mt-1 font-display text-sm italic text-ink-soft">De: Giuliana & Dante</p>
+            <p className="mt-1 font-display text-lg italic text-ink-soft">De: Giuliana & Dante</p>
           </div>
 
           {/* 7. Wax seal */}
@@ -190,7 +190,7 @@ export default function Envelope({ opening, onOpen }: Props) {
       </button>
 
       <p
-        className={`mt-6 sm:mt-8 font-display text-lg italic text-ink-soft text-center px-4 ${
+        className={`mt-6 sm:mt-8 font-display text-xl italic text-ink-soft text-center px-4 ${
           opening ? "env-fade-out" : ""
         }`}
       >
