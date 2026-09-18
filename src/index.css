@@ -107,20 +107,15 @@
    ────────────────────────────────────── */
 
 @keyframes env-flap-open-kf {
-  0% {
-    transform: rotateX(0deg);
-    z-index: 8;
-  }
-  49% {
-    z-index: 8;
-  }
-  50% {
-    z-index: 1;
-  }
-  100% {
-    transform: rotateX(180deg);
-    z-index: 1;
-  }
+  0%   { transform: rotateX(0deg); }
+  100% { transform: rotateX(180deg); }
+}
+
+/* z-index swap lives on a plain wrapper so the rotating layer is never
+   re-stacked (and therefore never de-composited) mid-animation. */
+@keyframes env-flap-stack-kf {
+  0%, 49%   { z-index: 8; }
+  50%, 100% { z-index: 1; }
 }
 
 @keyframes env-letter-rise-kf {
@@ -153,19 +148,27 @@
 }
 
 .env-flap-open {
-  animation: env-flap-open-kf 0.65s cubic-bezier(0.25, 0.1, 0.25, 1) 0.05s forwards;
+  animation: env-flap-open-kf 0.65s cubic-bezier(0.25, 0.1, 0.25, 1) 0.05s both;
+  will-change: transform;
+}
+
+.env-flap-stack {
+  animation: env-flap-stack-kf 0.7s linear both;
 }
 
 .env-letter-rise {
-  animation: env-letter-rise-kf 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
+  animation: env-letter-rise-kf 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s both;
+  will-change: transform;
 }
 
 .env-seal-burst {
-  animation: env-seal-burst-kf 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: env-seal-burst-kf 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  will-change: transform, opacity;
 }
 
 .env-fade-out {
-  animation: env-fade-out-kf 0.3s ease forwards;
+  animation: env-fade-out-kf 0.3s ease both;
+  will-change: opacity;
 }
 
 .preserve-3d {
@@ -225,10 +228,9 @@ body {
     #8c6a32 100%
   );
   background-size: 220% auto;
-  /* On mobile, skip shimmer animation entirely — static gold gradient is beautiful enough */
 }
 
-@media (hover: hover) {
+@media (prefers-reduced-motion: no-preference) {
   .foil-text {
     animation: shimmer-bg 4.5s linear infinite;
   }
@@ -248,18 +250,15 @@ body {
   position: relative;
 }
 
-@media (hover: hover) {
-  .paper-grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: radial-gradient(#9a7844 0.75px, transparent 0.75px);
-    background-size: 8px 8px;
-    border-radius: inherit;
-    transform: translateZ(0);
-  }
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: radial-gradient(#9a7844 0.75px, transparent 0.75px);
+  background-size: 8px 8px;
+  border-radius: inherit;
 }
 
 /* ──────────────────────────────────────
@@ -300,8 +299,7 @@ body {
   animation-name: confetti-fall;
   animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation-fill-mode: forwards;
-  will-change: transform;
-  contain: strict;
+  will-change: transform, opacity;
 }
 
 /* ──────────────────────────────────────
@@ -341,9 +339,35 @@ button, a {
    ────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  html {
+    scroll-behavior: auto;
   }
+
+  /* Ambient, looping decoration: this is what the preference is actually about. */
+  .animate-float,
+  .animate-twinkle,
+  .animate-heartbeat,
+  .animate-sway,
+  .animate-wiggle,
+  .animate-bounce,
+  .animate-envelope,
+  .wax-seal,
+  .foil-text,
+  .highlight-action {
+    animation: none !important;
+  }
+
+  .confetti-piece {
+    display: none;
+  }
+
+  /* The opening sequence carries meaning, so it still plays — briefly.
+     These durations are mirrored by REDUCED_TIMELINE in App.tsx; keep them in sync. */
+  .env-flap-open   { animation-duration: 0.2s;  animation-delay: 0s; }
+  .env-flap-stack  { animation-duration: 0.2s; }
+  .env-letter-rise { animation-duration: 0.22s; animation-delay: 0.04s; }
+  .env-seal-burst  { animation-duration: 0.14s; }
+  .env-fade-out    { animation-duration: 0.12s; }
+  .animate-fade-up,
+  .animate-pop     { animation-duration: 0.18s; }
 }

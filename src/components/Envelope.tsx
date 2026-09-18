@@ -63,13 +63,20 @@ export default function Envelope({ opening, onOpen }: Props) {
             </div>
           </div>
 
-          {/* 3. Top Flap: 3D swing open */}
+          {/* 3. Top Flap: 3D swing open.
+              Outer div only swaps z-index, inner div only rotates — keeping the two
+              apart stops iOS Safari from de-compositing the flap mid-rotation. */}
           <div
-            className={`absolute left-0 right-0 top-0 preserve-3d origin-top ${
-              opening ? "env-flap-open" : "z-[5]"
+            className={`absolute left-0 right-0 top-0 preserve-3d ${
+              opening ? "env-flap-stack" : "z-[5]"
+            }`}
+            style={{ height: "56%" }}
+          >
+          <div
+            className={`absolute inset-0 preserve-3d origin-top ${
+              opening ? "env-flap-open" : ""
             }`}
             style={{
-              height: "56%",
               transformOrigin: "top center",
             }}
           >
@@ -111,6 +118,7 @@ export default function Envelope({ opening, onOpen }: Props) {
                 <polygon points="0,0 100,0 50,56" fill="url(#flapBackGrad)" />
               </svg>
             </div>
+          </div>
           </div>
 
           {/* 4. Front pocket: covers bottom and sides with a crisp SVG V-shape */}

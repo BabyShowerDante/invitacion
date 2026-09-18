@@ -7,24 +7,45 @@ import Invitation from "./components/Invitation";
 
 type Stage = "sealed" | "opening" | "revealing" | "open";
 
+/* The JS hand-off below has to land exactly when the CSS opening animation ends.
+   Under `prefers-reduced-motion: reduce` the stylesheet plays a much shorter
+   sequence (see the matching block in index.css), so the timeline has to shrink
+   with it — otherwise the envelope sits frozen wide open for over a second and
+   then jumps, which is what phones with Reduce Motion / Battery Saver were doing. */
+const FULL_TIMELINE = { reveal: 1150, crossfade: 500 };
+const REDUCED_TIMELINE = { reveal: 300, crossfade: 180 };
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 export default function App() {
   const [stage, setStage] = useState<Stage>("sealed");
   const [confetti, setConfetti] = useState(false);
+  const [timeline, setTimeline] = useState(FULL_TIMELINE);
 
   const open = () => {
     if (stage !== "sealed") return;
+
+    // Read the preference at tap time so a mid-session change is respected.
+    const t = prefersReducedMotion() ? REDUCED_TIMELINE : FULL_TIMELINE;
+    setTimeline(t);
     setStage("opening");
 
-    // Phase 1: At 1150ms (flap has opened and letter has risen), start crossfade
+    // Phase 1: flap has opened and the letter has risen — start the crossfade.
     window.setTimeout(() => {
-      setConfetti(true);
+      if (!prefersReducedMotion()) setConfetti(true);
       setStage("revealing");
-    }, 1150);
+    }, t.reveal);
 
-    // Phase 2: At 1650ms (after smooth crossfade completes), unmount envelope
+    // Phase 2: crossfade is done — unmount the envelope.
     window.setTimeout(() => {
       setStage("open");
-    }, 1650);
+    }, t.reveal + t.crossfade);
   };
 
   useEffect(() => {
@@ -50,11 +71,15 @@ export default function App() {
       {/* Envelope view with smooth exit */}
       {stage !== "open" && (
         <div
-          className={`transition-all duration-500 ease-out ${
+          className={`transition-all ease-out ${
             stage === "revealing"
               ? "pointer-events-none opacity-0 scale-105 -translate-y-4"
               : "opacity-100 scale-100 translate-y-0"
           }`}
+          style={{
+            transitionDuration: `${timeline.crossfade}ms`,
+            willChange: stage === "sealed" ? "auto" : "opacity, transform",
+          }}
         >
           <Envelope opening={stage === "opening" || stage === "revealing"} onOpen={open} />
         </div>

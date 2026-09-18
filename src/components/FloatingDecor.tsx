@@ -17,6 +17,8 @@ const STARS = [
   { left: "95%", top: "68%", size: 5, delay: "2s" },
 ];
 
+/* `mobile` balloons stay visible on phones. They deliberately sit on opposite
+   edges — the two left-most ones used to be the mobile pair and overlapped. */
 const BALLOONS: {
   left: string;
   color: string;
@@ -24,10 +26,11 @@ const BALLOONS: {
   size: number;
   duration: string;
   rotate: string;
+  mobile?: boolean;
 }[] = [
-  { left: "3%", color: "#8EBFDA", delay: "0s", size: 34, duration: "7s", rotate: "-8deg" },
+  { left: "3%", color: "#8EBFDA", delay: "0s", size: 34, duration: "7s", rotate: "-8deg", mobile: true },
   { left: "9%", color: "#E8B4B8", delay: "1.2s", size: 26, duration: "8s", rotate: "6deg" },
-  { left: "88%", color: "#C4A36A", delay: "0.6s", size: 32, duration: "6.5s", rotate: "10deg" },
+  { left: "88%", color: "#C4A36A", delay: "0.6s", size: 32, duration: "6.5s", rotate: "10deg", mobile: true },
   { left: "94%", color: "#A8C5B4", delay: "1.8s", size: 24, duration: "9s", rotate: "-4deg" },
   { left: "1%", color: "#F3D1C0", delay: "2.4s", size: 22, duration: "7.5s", rotate: "5deg" },
   { left: "97%", color: "#8EBFDA", delay: "0.3s", size: 20, duration: "8.5s", rotate: "-12deg" },
@@ -98,7 +101,9 @@ export default function FloatingDecor() {
       {BALLOONS.map((b, i) => (
         <div
           key={`b-${i}`}
-          className={`absolute bottom-[8%] animate-float ${i > 1 ? "hidden sm:block" : "block"}`}
+          className={`absolute bottom-[8%] animate-float will-change-transform ${
+            b.mobile ? "block" : "hidden sm:block"
+          }`}
           style={{
             left: b.left,
             animationDelay: b.delay,
