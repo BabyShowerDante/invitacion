@@ -508,22 +508,21 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
     <div className="fixed bottom-4 sm:bottom-6 left-0 right-0 z-40 flex justify-center pointer-events-none pb-[max(0.5rem,env(safe-area-inset-bottom))] px-2">
       <nav
         aria-label="Acciones rápidas del Baby Shower"
-        className="pointer-events-auto flex items-center gap-2 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory sm:bg-ivory/95 sm:backdrop-blur-md px-3 py-2 shadow-lg max-w-[96vw] select-none animate-fade-up"
+        className="pointer-events-auto flex items-stretch gap-2 sm:gap-2.5 rounded-[28px] border border-gold/35 bg-ivory sm:bg-ivory/95 sm:backdrop-blur-md px-3 py-2 shadow-lg max-w-[96vw] select-none animate-fade-up"
       >
         <button
           type="button"
           onClick={() => scrollToSection("confirmar-asistencia")}
-          className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-[20px] bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold leading-snug text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer text-center"
         >
-          <span>💌</span>
-          <span className="hidden sm:inline">Confirmar y dejar mensajito en el muro</span>
-          <span className="sm:hidden">Confirmar</span>
+          <span className="shrink-0">💌</span>
+          <span>Confirmar y dejar mensajito en el muro</span>
         </button>
 
         <button
           type="button"
           onClick={() => scrollToSection("muro-de-amor")}
-          className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
+          className="flex shrink-0 items-center justify-center gap-1.5 rounded-[20px] bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold leading-snug text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
         >
           <span>✨</span>
           <span>Muro de amor</span>
