@@ -1,9 +1,17 @@
-﻿const base = import.meta.env.BASE_URL;
+﻿import heroDream from "../../public/images/hero-dream.jpg";
+import teddyBalloon from "../../public/images/teddy-balloon.jpg";
+import cloudStars from "../../public/images/cloud-stars.jpg";
+import floralCorner from "../../public/images/floral-corner.jpg";
+import babyFeet from "../../public/images/baby-feet.jpg";
+import moonStars from "../../public/images/moon-stars.jpg";
+import stork from "../../public/images/stork.jpg";
 
-export const heroDream = `${base}images/hero-dream.jpg`;
-export const teddyBalloon = `${base}images/teddy-balloon.jpg`;
-export const cloudStars = `${base}images/cloud-stars.jpg`;
-export const floralCorner = `${base}images/floral-corner.jpg`;
-export const babyFeet = `${base}images/baby-feet.jpg`;
-export const moonStars = `${base}images/moon-stars.jpg`;
-export const stork = `${base}images/stork.jpg`;
+export {
+  heroDream,
+  teddyBalloon,
+  cloudStars,
+  floralCorner,
+  babyFeet,
+  moonStars,
+  stork,
+};
