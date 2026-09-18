@@ -157,10 +157,14 @@ function InviteCard() {
         }
       }}
       onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-      style={{
-        transform: `perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-        transition: "transform 0.25s ease-out",
-      }}
+      style={
+        tilt.x !== 0 || tilt.y !== 0
+          ? {
+              transform: `perspective(1100px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+              transition: "transform 0.25s ease-out",
+            }
+          : undefined
+      }
     >
       <CornerOrnament className="-left-1 -top-1 h-24 w-24 sm:h-28 sm:w-28" />
       <CornerOrnament className="-bottom-1 -right-1 h-24 w-24 rotate-180 sm:h-28 sm:w-28" />
@@ -464,7 +468,7 @@ function ConfirmAndGuestbookSection({
             {messages.map((item) => (
               <div
                 key={item.id}
-                className="paper-grain relative rounded-2xl sm:rounded-3xl bg-ivory/95 p-5 sm:p-6 shadow-sm ring-1 ring-gold/20 flex flex-col justify-between transition hover:shadow-md"
+                className="paper-grain relative rounded-2xl sm:rounded-3xl bg-ivory/95 p-5 sm:p-6 shadow-sm ring-1 ring-gold/20 flex flex-col justify-between transition-transform hover:-translate-y-0.5"
               >
                 <div>
                   <div className="flex items-start justify-between gap-2">
@@ -501,35 +505,37 @@ function ConfirmAndGuestbookSection({
 
 function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
   return (
-    <nav
-      aria-label="Acciones rápidas del Baby Shower"
-      className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory/95 px-3 py-2 shadow-xl shadow-ink/15 backdrop-blur-md max-w-[96vw] select-none animate-fade-up pb-[max(0.5rem,env(safe-area-inset-bottom))]"
-    >
-      <button
-        type="button"
-        onClick={() => scrollToSection("confirmar-asistencia")}
-        className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
+    <div className="fixed bottom-4 sm:bottom-6 left-0 right-0 z-40 flex justify-center pointer-events-none pb-[max(0.5rem,env(safe-area-inset-bottom))] px-2">
+      <nav
+        aria-label="Acciones rápidas del Baby Shower"
+        className="pointer-events-auto flex items-center gap-2 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory sm:bg-ivory/95 sm:backdrop-blur-md px-3 py-2 shadow-lg max-w-[96vw] select-none animate-fade-up"
       >
-        <span>💌</span>
-        <span className="hidden sm:inline">Confirmar y dejar mensajito en el muro</span>
-        <span className="sm:hidden">Confirmar y dejar mensajito</span>
-      </button>
+        <button
+          type="button"
+          onClick={() => scrollToSection("confirmar-asistencia")}
+          className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
+        >
+          <span>💌</span>
+          <span className="hidden sm:inline">Confirmar y dejar mensajito en el muro</span>
+          <span className="sm:hidden">Confirmar y dejar mensajito</span>
+        </button>
 
-      <button
-        type="button"
-        onClick={() => scrollToSection("muro-de-amor")}
-        className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
-      >
-        <span>✨</span>
-        <span className="hidden sm:inline">Muro de amor</span>
-        <span className="sm:hidden">Muro</span>
-        {totalMessages > 0 && (
-          <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[11px] font-bold text-gold-dark">
-            {totalMessages}
-          </span>
-        )}
-      </button>
-    </nav>
+        <button
+          type="button"
+          onClick={() => scrollToSection("muro-de-amor")}
+          className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
+        >
+          <span>✨</span>
+          <span className="hidden sm:inline">Muro de amor</span>
+          <span className="sm:hidden">Muro</span>
+          {totalMessages > 0 && (
+            <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[11px] font-bold text-gold-dark">
+              {totalMessages}
+            </span>
+          )}
+        </button>
+      </nav>
+    </div>
   );
 }
 

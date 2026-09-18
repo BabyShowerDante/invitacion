@@ -21,9 +21,10 @@ export default function Envelope({ opening, onOpen }: Props) {
         onClick={onOpen}
         disabled={opening}
         aria-label="Abrir la invitación"
-        className={`group relative cursor-pointer border-0 bg-transparent p-0 select-none ${
-          opening ? "" : "animate-envelope"
-        }`}
+        className="group relative cursor-pointer border-0 bg-transparent p-0 select-none animate-envelope"
+        style={{
+          animationPlayState: opening ? "paused" : "running",
+        }}
       >
         <div
           className="relative"
@@ -34,14 +35,9 @@ export default function Envelope({ opening, onOpen }: Props) {
             perspective: "1200px",
           }}
         >
-          {/* 1. Back of envelope */}
+          {/* 1. Back of envelope (base wall) */}
           <div
-            className="absolute inset-0 rounded-[12px]"
-            style={{
-              background: "linear-gradient(180deg, #f4e3c6 0%, #e7cfab 100%)",
-              boxShadow:
-                "0 30px 50px -18px rgba(90,70,56,0.45), 0 12px 20px -10px rgba(90,70,56,0.25)",
-            }}
+            className="absolute inset-0 rounded-[14px] bg-gradient-to-b from-[#f4e3c6] to-[#e7cfab] shadow-2xl shadow-ink/30"
           />
 
           {/* 2. Letter inside - slides up when opened */}
@@ -52,10 +48,9 @@ export default function Envelope({ opening, onOpen }: Props) {
             style={{
               left: "6%",
               right: "6%",
-              top: "14%",
-              bottom: "12%",
-              zIndex: opening ? 5 : 1,
-              opacity: opening ? undefined : 0,
+              top: "10%",
+              bottom: "8%",
+              zIndex: 2,
             }}
           >
             <div className="gold-line mt-3" />
@@ -68,42 +63,73 @@ export default function Envelope({ opening, onOpen }: Props) {
             </div>
           </div>
 
-          {/* 3. Front pocket (seamless craft paper covering bottom & sides) */}
+          {/* 3. Top Flap: 3D swing open */}
           <div
-            className="absolute inset-0 z-[2] rounded-[12px]"
-            style={{
-              background:
-                "linear-gradient(180deg, #f0d9b4 0%, #e6c79a 48%, #ddba8a 100%)",
-              clipPath: "polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%)",
-              boxShadow: "inset 0 8px 16px rgba(90,70,56,0.08)",
-            }}
-          />
-
-          {/* 4. Side folds shine */}
-          <div
-            className="absolute inset-0 z-[2] rounded-[12px] opacity-40"
-            style={{
-              background:
-                "linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.35) 50%, transparent 62%)",
-              clipPath: "polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%)",
-            }}
-          />
-
-          {/* 5. Top Flap: flips open 180deg via CSS animation class */}
-          <div
-            className={`absolute left-0 right-0 top-0 z-[3] rounded-t-[12px] ${
-              opening ? "env-flap-open" : ""
+            className={`absolute left-0 right-0 top-0 preserve-3d origin-top ${
+              opening ? "env-flap-open" : "z-[5]"
             }`}
             style={{
-              height: "64%",
+              height: "56%",
               transformOrigin: "top center",
-              background: "linear-gradient(180deg, #f8ead0 0%, #ebcfa8 100%)",
-              clipPath: "polygon(0 0, 100% 0, 50% 100%)",
-              boxShadow: opening ? "none" : "0 8px 16px rgba(90,70,56,0.16)",
             }}
-          />
+          >
+            {/* Front face of flap (visible when closed) */}
+            <div className="absolute inset-0 backface-hidden">
+              <svg
+                viewBox="0 0 100 56"
+                preserveAspectRatio="none"
+                className="h-full w-full filter drop-shadow-[0_4px_8px_rgba(90,70,56,0.15)]"
+              >
+                <defs>
+                  <linearGradient id="flapFrontGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#faecd6" />
+                    <stop offset="100%" stopColor="#e8cca6" />
+                  </linearGradient>
+                </defs>
+                <polygon points="0,0 100,0 50,56" fill="url(#flapFrontGrad)" />
+              </svg>
+            </div>
 
-          {/* 6. Postage stamp */}
+            {/* Back face of flap (visible when flipped open 180deg) */}
+            <div
+              className="absolute inset-0 backface-hidden"
+              style={{
+                transform: "rotateX(180deg)",
+              }}
+            >
+              <svg
+                viewBox="0 0 100 56"
+                preserveAspectRatio="none"
+                className="h-full w-full"
+              >
+                <defs>
+                  <linearGradient id="flapBackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#fdf5e8" />
+                    <stop offset="100%" stopColor="#f0dac0" />
+                  </linearGradient>
+                </defs>
+                <polygon points="0,0 100,0 50,56" fill="url(#flapBackGrad)" />
+              </svg>
+            </div>
+          </div>
+
+          {/* 4. Front pocket: covers bottom and sides with a crisp SVG V-shape */}
+          <svg
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            className="pointer-events-none absolute inset-0 z-[4] h-full w-full rounded-[14px]"
+          >
+            <defs>
+              <linearGradient id="pocketGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f0d9b4" />
+                <stop offset="48%" stopColor="#e6c79a" />
+                <stop offset="100%" stopColor="#ddba8a" />
+              </linearGradient>
+            </defs>
+            <polygon points="0,0 50,54 100,0 100,100 0,100" fill="url(#pocketGrad)" />
+          </svg>
+
+          {/* 5. Postage stamp */}
           <div
             className={`absolute right-3 top-3 z-[6] rotate-6 border-2 border-dashed border-gold-dark/40 bg-ivory p-[3px] shadow-sm ${
               opening ? "env-fade-out" : ""
@@ -117,9 +143,9 @@ export default function Envelope({ opening, onOpen }: Props) {
             </div>
           </div>
 
-          {/* 7. Address lines */}
+          {/* 6. Address lines */}
           <div
-            className={`absolute bottom-4 left-6 sm:bottom-6 sm:left-8 z-[3] text-left max-w-[55%] ${
+            className={`absolute bottom-4 left-6 sm:bottom-6 sm:left-8 z-[6] text-left max-w-[55%] ${
               opening ? "env-fade-out" : ""
             }`}
           >
@@ -130,13 +156,13 @@ export default function Envelope({ opening, onOpen }: Props) {
             <p className="mt-1 font-display text-sm italic text-ink-soft">De: Giuliana & Dante</p>
           </div>
 
-          {/* 8. Wax seal */}
+          {/* 7. Wax seal */}
           <div
-            className={`absolute z-[7] ${
+            className={`absolute z-[12] pointer-events-none ${
               opening ? "env-seal-burst" : ""
             }`}
             style={{
-              top: "60%",
+              top: "56%",
               left: "50%",
               transform: "translate3d(-50%, -50%, 0)",
             }}

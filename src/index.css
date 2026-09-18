@@ -34,176 +34,153 @@
   --animate-envelope: envelope-float 5s ease-in-out infinite;
 }
 
+/* ──────────────────────────────────────────────
+   KEYFRAMES — only animate transform & opacity
+   (GPU-compositable, no paint/layout triggers)
+   ────────────────────────────────────────────── */
+
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(var(--r, 0deg));
-  }
-  50% {
-    transform: translateY(-18px) rotate(calc(var(--r, 0deg) + 3deg));
-  }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--r, 0deg)); }
+  50%      { transform: translate3d(0, -18px, 0) rotate(calc(var(--r, 0deg) + 3deg)); }
 }
 
 @keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(0.75) rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2) rotate(20deg);
-  }
+  0%, 100% { opacity: 0.25; transform: scale(0.75) rotate(0deg); }
+  50%      { opacity: 1;    transform: scale(1.2) rotate(20deg); }
 }
 
 @keyframes heartbeat {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  14% {
-    transform: scale(1.18);
-  }
-  28% {
-    transform: scale(1);
-  }
-  42% {
-    transform: scale(1.12);
-  }
-  70% {
-    transform: scale(1);
-  }
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.18); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.12); }
+  70%      { transform: scale(1); }
 }
 
+/* shimmer: use transform instead of background-position for GPU compositing */
 @keyframes shimmer {
-  0% {
-    background-position: 0% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes sway {
-  0%,
-  100% {
-    transform: translateX(0) rotate(-4deg);
-  }
-  50% {
-    transform: translateX(14px) rotate(5deg);
-  }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-4deg); }
+  50%      { transform: translate3d(14px, 0, 0) rotate(5deg); }
 }
 
 @keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
 }
 
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes pop-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.72) translateY(24px);
-  }
-  70% {
-    transform: scale(1.03) translateY(-4px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  0%   { opacity: 0; transform: scale(0.72) translate3d(0, 24px, 0); }
+  70%  {             transform: scale(1.03) translate3d(0, -4px, 0); }
+  100% { opacity: 1; transform: scale(1)    translate3d(0, 0, 0); }
 }
 
+/* seal-pulse: only scale — no box-shadow animation (expensive paint!) */
 @keyframes seal-pulse {
-  0%,
-  100% {
-    box-shadow:
-      0 6px 16px rgba(184, 92, 98, 0.35),
-      0 0 0 0 rgba(184, 92, 98, 0.45),
-      inset 0 2px 6px rgba(255, 220, 220, 0.45),
-      inset 0 -6px 10px rgba(80, 20, 24, 0.28);
-  }
-  50% {
-    box-shadow:
-      0 8px 20px rgba(184, 92, 98, 0.45),
-      0 0 0 14px rgba(184, 92, 98, 0),
-      inset 0 2px 6px rgba(255, 220, 220, 0.45),
-      inset 0 -6px 10px rgba(80, 20, 24, 0.28);
-  }
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
 }
 
 @keyframes envelope-float {
-  0%,
-  100% {
-    transform: rotate(-2.5deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-1.5deg) translateY(-10px);
-  }
+  0%, 100% { transform: rotate(-2.5deg) translate3d(0, 0, 0); }
+  50%      { transform: rotate(-1.5deg) translate3d(0, -10px, 0); }
 }
 
 @keyframes confetti-fall {
-  0% {
-    transform: translate3d(0, -12vh, 0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(720deg);
-    opacity: 0.85;
-  }
+  0%   { transform: translate3d(0, -12vh, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(720deg); opacity: 0.85; }
 }
 
+/* ──────────────────────────────────────
+   ENVELOPE OPENING ANIMATIONS
+   CSS @keyframes (run on compositor,
+   won't get batched/skipped by React)
+   ────────────────────────────────────── */
+
 @keyframes env-flap-open-kf {
-  0%   { transform: rotateX(0deg); }
-  100% { transform: rotateX(180deg); }
+  0% {
+    transform: rotateX(0deg);
+    z-index: 8;
+  }
+  49% {
+    z-index: 8;
+  }
+  50% {
+    z-index: 1;
+  }
+  100% {
+    transform: rotateX(180deg);
+    z-index: 1;
+  }
 }
 
 @keyframes env-letter-rise-kf {
-  0%   { opacity: 0; transform: translate3d(0, 0, 0); }
-  25%  { opacity: 1; transform: translate3d(0, 0, 0); }
-  100% { opacity: 1; transform: translate3d(0, -68%, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -62%, 0);
+  }
 }
 
 @keyframes env-seal-burst-kf {
-  0%   { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1); }
-  100% { opacity: 0; transform: translate3d(-50%, -70%, 0) scale(1.3); }
+  0% {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-50%, -65%, 0) scale(1.3);
+  }
 }
 
 @keyframes env-fade-out-kf {
-  0%   { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .env-flap-open {
-  animation: env-flap-open-kf 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.05s both;
+  animation: env-flap-open-kf 0.65s cubic-bezier(0.25, 0.1, 0.25, 1) 0.05s forwards;
 }
 
 .env-letter-rise {
-  animation: env-letter-rise-kf 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s both;
+  animation: env-letter-rise-kf 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) 0.3s forwards;
 }
 
 .env-seal-burst {
-  animation: env-seal-burst-kf 0.32s ease both;
+  animation: env-seal-burst-kf 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .env-fade-out {
-  animation: env-fade-out-kf 0.3s ease both;
+  animation: env-fade-out-kf 0.3s ease forwards;
 }
+
+.preserve-3d {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ──────────────────────────────────────
+   GLOBAL STYLES
+   ────────────────────────────────────── */
 
 html {
   scroll-behavior: smooth;
@@ -211,9 +188,7 @@ html {
   text-size-adjust: 100%;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   min-height: 100%;
 }
 
@@ -227,8 +202,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ──────────────────────────────────────
+   FOIL TEXT SHIMMER
+   Uses a wide gradient + transform-based
+   animation instead of background-position
+   ────────────────────────────────────── */
+
 .foil-text {
-  background: linear-gradient(
+  position: relative;
+  overflow: hidden;
+  color: #c4a36a;                     /* fallback gold colour */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
     110deg,
     #8c6a32 0%,
     #e8d5a3 18%,
@@ -238,55 +225,88 @@ body {
     #8c6a32 100%
   );
   background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 4.5s linear infinite;
+  /* On mobile, skip shimmer animation entirely — static gold gradient is beautiful enough */
 }
+
+@media (hover: hover) {
+  .foil-text {
+    animation: shimmer-bg 4.5s linear infinite;
+  }
+}
+
+@keyframes shimmer-bg {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ──────────────────────────────────────
+   PAPER GRAIN (light, static texture)
+   On mobile: skip the pseudo-element entirely
+   ────────────────────────────────────── */
 
 .paper-grain {
   position: relative;
 }
 
-.paper-grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: radial-gradient(#9a7844 0.75px, transparent 0.75px);
-  background-size: 8px 8px;
-  border-radius: inherit;
-  transform: translateZ(0);
+@media (hover: hover) {
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: radial-gradient(#9a7844 0.75px, transparent 0.75px);
+    background-size: 8px 8px;
+    border-radius: inherit;
+    transform: translateZ(0);
+  }
 }
 
+/* ──────────────────────────────────────
+   HIGHLIGHT PULSE (one-shot, transform only)
+   ────────────────────────────────────── */
+
 @keyframes highlight-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(196, 163, 106, 0.7);
-  }
-  50% {
-    box-shadow: 0 0 0 10px rgba(196, 163, 106, 0.25);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(196, 163, 106, 0);
-  }
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.015); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .highlight-action {
   animation: highlight-pulse 1.6s ease-out;
 }
 
+/* ──────────────────────────────────────
+   WAX SEAL
+   Static box-shadow (no animation!),
+   pulse is transform-only scale
+   ────────────────────────────────────── */
+
 .wax-seal {
   border-radius: 48% 52% 50% 50% / 50% 46% 54% 50%;
   background: radial-gradient(circle at 32% 28%, #e08a8e 0%, #c45d64 42%, #8e3a42 100%);
+  box-shadow:
+    0 6px 16px rgba(184, 92, 98, 0.35),
+    inset 0 2px 6px rgba(255, 220, 220, 0.45),
+    inset 0 -6px 10px rgba(80, 20, 24, 0.28);
   animation: seal-pulse 2s ease-in-out infinite;
 }
+
+/* ──────────────────────────────────────
+   CONFETTI (GPU-only)
+   ────────────────────────────────────── */
 
 .confetti-piece {
   animation-name: confetti-fall;
   animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation-fill-mode: forwards;
+  will-change: transform;
+  contain: strict;
 }
+
+/* ──────────────────────────────────────
+   MISC UTILITY CLASSES
+   ────────────────────────────────────── */
 
 .invite-shadow {
   box-shadow:
@@ -307,23 +327,21 @@ body {
   );
 }
 
-input,
-select,
-textarea,
-button {
+input, select, textarea, button {
   font-family: inherit;
 }
 
-button,
-a {
+button, a {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
+/* ──────────────────────────────────────
+   REDUCED MOTION (accessibility)
+   ────────────────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

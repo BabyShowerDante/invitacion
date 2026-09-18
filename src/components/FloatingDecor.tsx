@@ -1,22 +1,20 @@
+/* Reduced star count on mobile for performance */
 const STARS = [
   { left: "4%", top: "8%", size: 8, delay: "0s" },
-  { left: "12%", top: "22%", size: 5, delay: "0.4s" },
   { left: "22%", top: "6%", size: 6, delay: "1.1s" },
-  { left: "31%", top: "18%", size: 4, delay: "0.7s" },
   { left: "48%", top: "4%", size: 7, delay: "1.6s" },
-  { left: "63%", top: "12%", size: 5, delay: "0.2s" },
   { left: "74%", top: "7%", size: 9, delay: "0.9s" },
-  { left: "86%", top: "16%", size: 5, delay: "1.3s" },
   { left: "93%", top: "5%", size: 6, delay: "0.5s" },
+  /* desktop-only extras */
+  { left: "12%", top: "22%", size: 5, delay: "0.4s" },
+  { left: "31%", top: "18%", size: 4, delay: "0.7s" },
+  { left: "63%", top: "12%", size: 5, delay: "0.2s" },
+  { left: "86%", top: "16%", size: 5, delay: "1.3s" },
   { left: "8%", top: "48%", size: 5, delay: "1.8s" },
   { left: "91%", top: "42%", size: 7, delay: "0.3s" },
   { left: "3%", top: "72%", size: 6, delay: "1.4s" },
-  { left: "18%", top: "86%", size: 4, delay: "0.6s" },
   { left: "78%", top: "80%", size: 8, delay: "1.1s" },
   { left: "95%", top: "68%", size: 5, delay: "2s" },
-  { left: "42%", top: "90%", size: 6, delay: "0.8s" },
-  { left: "55%", top: "78%", size: 4, delay: "1.7s" },
-  { left: "67%", top: "92%", size: 5, delay: "0.1s" },
 ];
 
 const BALLOONS: {
@@ -53,7 +51,6 @@ function Balloon({
           height: size * 1.22,
           borderRadius: "50% 50% 50% 50% / 45% 45% 55% 55%",
           background: `radial-gradient(circle at 32% 28%, rgba(255,255,255,0.72), transparent 42%), ${color}`,
-          boxShadow: `inset -6px -8px 12px rgba(0,0,0,0.12), 0 8px 14px rgba(90,70,56,0.18)`,
         }}
       >
         <span
@@ -86,14 +83,12 @@ export default function FloatingDecor() {
       {STARS.map((star, i) => (
         <span
           key={`s-${i}`}
-          className={`absolute text-gold animate-twinkle ${i > 8 ? "hidden sm:inline-block" : "inline-block"}`}
+          className={`absolute text-gold animate-twinkle ${i > 4 ? "hidden sm:inline-block" : "inline-block"}`}
           style={{
             left: star.left,
             top: star.top,
             fontSize: star.size,
             animationDelay: star.delay,
-            willChange: "transform, opacity",
-            transform: "translate3d(0, 0, 0)",
           }}
         >
           ✦
@@ -103,23 +98,22 @@ export default function FloatingDecor() {
       {BALLOONS.map((b, i) => (
         <div
           key={`b-${i}`}
-          className={`absolute bottom-[8%] animate-float ${i > 2 ? "hidden sm:block" : "block"}`}
+          className={`absolute bottom-[8%] animate-float ${i > 1 ? "hidden sm:block" : "block"}`}
           style={{
             left: b.left,
             animationDelay: b.delay,
             animationDuration: b.duration,
             ["--r" as string]: b.rotate,
-            willChange: "transform",
-            transform: "translate3d(0, 0, 0)",
           }}
         >
           <Balloon color={b.color} size={b.size} rotate={b.rotate} />
         </div>
       ))}
 
-      <div className="absolute left-[6%] top-[30%] hidden h-20 w-20 rounded-full bg-sky/20 blur-2xl sm:block" />
-      <div className="absolute right-[8%] top-[40%] hidden h-28 w-28 rounded-full bg-blush/25 blur-3xl sm:block" />
-      <div className="absolute bottom-[20%] left-[40%] hidden h-24 w-24 rounded-full bg-gold/15 blur-3xl sm:block" />
+      {/* Soft ambient glows — desktop only, no blur filters on mobile */}
+      <div className="absolute left-[6%] top-[30%] hidden h-20 w-20 rounded-full bg-sky/10 sm:block" />
+      <div className="absolute right-[8%] top-[40%] hidden h-28 w-28 rounded-full bg-blush/12 sm:block" />
+      <div className="absolute bottom-[20%] left-[40%] hidden h-24 w-24 rounded-full bg-gold/8 sm:block" />
     </div>
   );
 }

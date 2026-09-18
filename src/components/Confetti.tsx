@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 const COLORS = ["#8EBFDA", "#E8B4B8", "#C4A36A", "#A8C5B4", "#F3D1C0", "#fff4d6", "#d4909b"];
 const TYPES = ["circle", "square", "heart", "star"] as const;
 
@@ -12,16 +14,18 @@ type Piece = {
   drift: string;
 };
 
-const PIECES: Piece[] = Array.from({ length: 70 }, (_, i) => ({
-  id: i,
-  left: `${(i * 13.7) % 100}%`,
-  delay: `${(i % 18) * 0.08}s`,
-  duration: `${2.6 + (i % 9) * 0.22}s`,
-  color: COLORS[i % COLORS.length],
-  type: TYPES[i % TYPES.length],
-  size: 7 + (i % 6) * 2,
-  drift: `${(i % 2 === 0 ? 1 : -1) * (18 + (i % 30))}px`,
-}));
+function makePieces(count: number): Piece[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    left: `${(i * 13.7) % 100}%`,
+    delay: `${(i % 18) * 0.08}s`,
+    duration: `${2.6 + (i % 9) * 0.22}s`,
+    color: COLORS[i % COLORS.length],
+    type: TYPES[i % TYPES.length],
+    size: 7 + (i % 6) * 2,
+    drift: `${(i % 2 === 0 ? 1 : -1) * (18 + (i % 30))}px`,
+  }));
+}
 
 function Shape({ type, color, size }: { type: Piece["type"]; color: string; size: number }) {
   if (type === "heart") {
@@ -54,10 +58,17 @@ function Shape({ type, color, size }: { type: Piece["type"]; color: string; size
   );
 }
 
+/* Detect touch device for confetti count reduction */
+const isTouchDevice =
+  typeof window !== "undefined" &&
+  (window.matchMedia("(hover: none)").matches || "ontouchstart" in window);
+
 export default function Confetti() {
+  const pieces = useMemo(() => makePieces(isTouchDevice ? 30 : 60), []);
+
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden" aria-hidden>
-      {PIECES.map((p) => (
+      {pieces.map((p) => (
         <span
           key={p.id}
           className="confetti-piece absolute top-0"
