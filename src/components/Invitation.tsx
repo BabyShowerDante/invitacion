@@ -293,7 +293,7 @@ function mapsUrl() {
 
 function whatsappUrl() {
   const t = encodeURIComponent(
-    "¡Estoy invitada/o al Baby Shower de Dante! 💙\nSábado 10 de octubre 2026 · 1:00 PM\nJuan B. Justo 8917\nGiuliana te espera con el corazón lleno.",
+    "¡Estoy invitada/o al Baby Shower de Dante! 💙\nSábado 10 de octubre 2026 · 1:00 PM\nJuan B. Justo 8917\nGiuliana te espera con el corazón lleno.\n\nMirá la invitación acá: https://babyshowerdante.github.io/invitacion/",
   );
   return `https://wa.me/?text=${t}`;
 }

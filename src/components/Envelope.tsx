@@ -36,7 +36,7 @@ export default function Envelope({ opening, onOpen }: Props) {
         >
           {/* 1. Back of envelope */}
           <div
-            className="absolute inset-0 rounded-[10px]"
+            className="absolute inset-0 rounded-[12px]"
             style={{
               background: "linear-gradient(180deg, #f4e3c6 0%, #e7cfab 100%)",
               boxShadow:
@@ -44,7 +44,7 @@ export default function Envelope({ opening, onOpen }: Props) {
             }}
           />
 
-          {/* 2. Letter inside - completely tucked inside, slides out smoothly with transform */}
+          {/* 2. Letter inside - completely tucked inside, reveals and slides up when opened */}
           <div
             className="absolute overflow-hidden rounded-md bg-ivory shadow-md"
             style={{
@@ -53,9 +53,10 @@ export default function Envelope({ opening, onOpen }: Props) {
               top: "14%",
               bottom: "12%",
               zIndex: opening ? 5 : 1,
+              opacity: opening ? 1 : 0,
               transform: opening ? "translate3d(0, -68%, 0)" : "translate3d(0, 0, 0)",
-              transition: "transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s",
-              willChange: "transform",
+              transition: "transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s, opacity 0.3s ease 0.3s",
+              willChange: "transform, opacity",
             }}
           >
             <div className="gold-line mt-3" />
@@ -68,32 +69,32 @@ export default function Envelope({ opening, onOpen }: Props) {
             </div>
           </div>
 
-          {/* 3. Front pocket (covers the letter completely when closed) */}
+          {/* 3. Front pocket (seamless craft paper covering bottom & sides) */}
           <div
-            className="absolute inset-0 z-[2] rounded-[10px]"
+            className="absolute inset-0 z-[2] rounded-[12px]"
             style={{
               background:
                 "linear-gradient(180deg, #f0d9b4 0%, #e6c79a 48%, #ddba8a 100%)",
-              clipPath: "polygon(0 35%, 50% 50%, 100% 35%, 100% 100%, 0 100%)",
+              clipPath: "polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%)",
               boxShadow: "inset 0 8px 16px rgba(90,70,56,0.08)",
             }}
           />
 
           {/* 4. Side folds shine */}
           <div
-            className="absolute inset-0 z-[2] rounded-[10px] opacity-40"
+            className="absolute inset-0 z-[2] rounded-[12px] opacity-40"
             style={{
               background:
                 "linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.35) 50%, transparent 62%)",
-              clipPath: "polygon(0 35%, 50% 50%, 100% 35%, 100% 100%, 0 100%)",
+              clipPath: "polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%)",
             }}
           />
 
-          {/* 5. Top Flap: overlaps front pocket when closed, flips open 180deg */}
+          {/* 5. Top Flap: overlaps front pocket completely when closed, flips open 180deg */}
           <div
-            className="absolute left-0 right-0 top-0 z-[3] rounded-t-[10px]"
+            className="absolute left-0 right-0 top-0 z-[3] rounded-t-[12px]"
             style={{
-              height: "56%",
+              height: "64%",
               transformOrigin: "top center",
               background: opening
                 ? "linear-gradient(180deg, #e0c196 0%, #f3e0c2 100%)"
@@ -101,7 +102,7 @@ export default function Envelope({ opening, onOpen }: Props) {
               clipPath: "polygon(0 0, 100% 0, 50% 100%)",
               transform: opening ? "rotateX(180deg)" : "rotateX(0deg)",
               transition: "transform 0.65s cubic-bezier(0.25, 1, 0.5, 1) 0.05s",
-              boxShadow: opening ? "none" : "0 8px 14px rgba(90,70,56,0.14)",
+              boxShadow: opening ? "none" : "0 8px 16px rgba(90,70,56,0.16)",
               willChange: "transform",
             }}
           />
@@ -137,11 +138,11 @@ export default function Envelope({ opening, onOpen }: Props) {
           <div
             className="absolute z-[7]"
             style={{
-              top: "54%",
+              top: "60%",
               left: "50%",
               opacity: opening ? 0 : 1,
               transform: opening
-                ? "translate3d(-50%, -65%, 0) scale(1.3)"
+                ? "translate3d(-50%, -70%, 0) scale(1.3)"
                 : "translate3d(-50%, -50%, 0) scale(1)",
               transition: "opacity 0.28s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1)",
               willChange: "transform, opacity",
