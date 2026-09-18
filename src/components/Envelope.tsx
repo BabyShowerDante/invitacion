@@ -7,12 +7,9 @@ export default function Envelope({ opening, onOpen }: Props) {
   return (
     <div className="relative z-10 flex min-h-[100dvh] flex-col items-center justify-center px-3 py-6 sm:px-4 sm:py-10">
       <div className="mb-6 text-center sm:mb-8 animate-fade-up">
-        <p className="mb-1.5 text-[13px] font-semibold uppercase tracking-[0.35em] text-gold-dark">
-          Correo de cigüeña
-        </p>
         <h1 className="font-script text-4xl text-ink sm:text-5xl md:text-6xl">Tenés una invitación</h1>
         <p className="mt-2 font-display text-xl italic text-ink-soft sm:mt-2.5">
-          De Giuliana, con el corazón a mil.
+          De Giuliana.
         </p>
       </div>
 
@@ -160,8 +157,8 @@ export default function Envelope({ opening, onOpen }: Props) {
             <p className="font-display text-[13px] uppercase tracking-[0.22em] text-ink-soft">
               Para
             </p>
-            <p className="font-script text-2xl leading-none text-ink sm:text-3xl">Vos, con amor</p>
-            <p className="mt-1 font-display text-lg italic text-ink-soft">De: Giuliana & Dante</p>
+            <p className="font-script text-2xl leading-none text-ink sm:text-3xl">Vos</p>
+            <p className="mt-1 font-display text-lg italic text-ink-soft">De: Giuliana</p>
           </div>
 
           {/* 7. Wax seal */}
@@ -194,7 +191,7 @@ export default function Envelope({ opening, onOpen }: Props) {
           opening ? "env-fade-out" : ""
         }`}
       >
-        Tocá el sello de lacre para abrirla
+        Tocá para abrir
       </p>
       <div
         className={`mt-1.5 animate-bounce text-rose ${

@@ -118,8 +118,8 @@ function Countdown() {
       <p className="mb-4 text-center font-display text-xl italic text-ink-soft sm:mb-5 sm:text-xl group-hover:text-ink transition-colors flex items-center justify-center gap-1.5">
         <span>
           {t.done
-            ? "¡Hoy es el gran día! Dante ya está listo para los mimos."
-            : "Dante cuenta las pataditas que faltan…"}
+            ? "Es hoy. Te esperamos."
+            : "Falta cada vez menos."}
         </span>
         <span className="text-[13px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↓</span>
       </p>
@@ -188,7 +188,7 @@ function InviteCard() {
         </div>
 
         <p className="mt-6 text-center font-display text-xl italic text-ink-soft">
-          Giuliana celebra la llegada de su
+          Giuliana espera a
         </p>
 
         <h1 className="foil-text mt-1 text-center font-script text-6xl leading-none sm:text-7xl md:text-8xl">
@@ -198,8 +198,7 @@ function InviteCard() {
         <Flourish className="mx-auto mt-3 h-6 w-40 text-gold sm:mt-4 sm:h-7 sm:w-48" />
 
         <p className="mx-auto mt-4 max-w-xs text-center font-display text-xl leading-relaxed text-ink sm:mt-5 sm:text-xl">
-          Un principito de primavera que ya quiere conocerte, llenarte de babitas
-          y robarte el corazón.
+          Nace en primavera. Queremos festejarlo con vos.
         </p>
 
         <div className="mx-auto mt-6 space-y-3 rounded-xl bg-sand/50 p-3 text-center ring-1 ring-gold/20 sm:mt-8 sm:space-y-4 sm:rounded-2xl sm:p-4">
@@ -217,7 +216,7 @@ function InviteCard() {
               Sábado 10 de octubre
             </p>
             <p className="font-display text-xl text-ink-soft">
-              2026 · 1:00 PM <span className="ml-1 text-lg text-gold underline underline-offset-2 opacity-85 group-hover:opacity-100">Agendar</span>
+              2026 · 13:00 <span className="ml-1 text-lg text-gold underline underline-offset-2 opacity-85 group-hover:opacity-100">Agendar</span>
             </p>
           </button>
 
@@ -237,16 +236,11 @@ function InviteCard() {
               Juan B. Justo 8917
             </p>
             <p className="font-display text-xl text-ink-soft">
-              Traé el corazón <span className="ml-1 text-lg text-sky-deep underline underline-offset-2 opacity-85 group-hover:opacity-100">Ver mapa</span>
+              <span className="text-lg text-sky-deep underline underline-offset-2 opacity-85 group-hover:opacity-100">Ver mapa</span>
             </p>
           </button>
         </div>
 
-        <p className="mt-6 text-center font-display text-xl italic text-ink-soft">
-          “Hay milagros que se celebran con globitos,
-          <br />
-          facturas y mucho, mucho amor.”
-        </p>
       </div>
     </article>
   );
@@ -285,7 +279,7 @@ function Detail({
 function calendarUrl() {
   const text = encodeURIComponent("Baby Shower de Dante");
   const details = encodeURIComponent(
-    "Giuliana te invita a celebrar la llegada de Dante. ¡No faltes!",
+    "Baby shower de Dante. Juan B. Justo 8917.",
   );
   const loc = encodeURIComponent("Juan B. Justo 8917");
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=20261010T130000/20261010T170000&ctz=America/Argentina/Buenos_Aires&details=${details}&location=${loc}`;
@@ -297,16 +291,16 @@ function mapsUrl() {
 
 function whatsappUrl() {
   const t = encodeURIComponent(
-    "¡Estoy invitada/o al Baby Shower de Dante! 💙\nSábado 10 de octubre 2026 · 1:00 PM\nJuan B. Justo 8917\nGiuliana te espera con el corazón lleno.\n\nMirá la invitación acá: https://babyshowerdante.github.io/invitacion/",
+    "Baby shower de Dante\nSábado 10 de octubre de 2026, 13:00\nJuan B. Justo 8917\n\nInvitación: https://babyshowerdante.github.io/invitacion/",
   );
   return `https://wa.me/?text=${t}`;
 }
 
 const ITINERARY = [
-  { time: "13:00", title: "Recibimiento", note: "Un brindis y mil abrazos." },
-  { time: "13:30", title: "Juegos y risas", note: "Prepará el sentido del humor." },
-  { time: "14:30", title: "Mesa dulce", note: "Facturas, cake y tentaciones." },
-  { time: "15:30", title: "Mimos para Dante", note: "El momentito de los regalitos." },
+  { time: "13:00", title: "Recibimiento", note: "Llegada y brindis." },
+  { time: "13:30", title: "Juegos", note: "Un par, cortos." },
+  { time: "14:30", title: "Mesa dulce", note: "Facturas y torta." },
+  { time: "15:30", title: "Regalos", note: "Abrimos los regalos." },
 ];
 
 export type GuestMessage = {
@@ -354,7 +348,7 @@ function ConfirmAndGuestbookSection({
 
   const getWhatsAppPersonalUrl = (msg: GuestMessage) => {
     const text = encodeURIComponent(
-      `¡Hola Giuliana! Confirmo mi asistencia al Baby Shower de Dante 💙\nSoy ${msg.name}\n\nMi mensajito para Dante:\n"${msg.message}"\n\n¡Nos vemos el 10 de octubre a la 1:00 PM! 👶🍼`,
+      `Hola Giuliana, confirmo que voy al baby shower de Dante.\nSoy ${msg.name}.\n\nMi mensaje para Dante:\n"${msg.message}"\n\nNos vemos el 10 de octubre.`,
     );
     return `https://wa.me/?text=${text}`;
   };
@@ -367,23 +361,23 @@ function ConfirmAndGuestbookSection({
           <div className="text-center">
             <span className="inline-block text-2xl">💌</span>
             <p className="mt-1 text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
-              Confirmar asistencia y mensajito
+              Confirmar asistencia
             </p>
             <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
-              ¿Venís a celebrar?
+              ¿Venís?
             </h2>
             <p className="mx-auto mt-2 max-w-md font-display text-xl italic text-ink-soft sm:text-xl">
-              Dejanos tu nombre y unas palabritas de amor que Dante guardará para siempre en su libro de recuerdos.
+              Dejanos tu nombre y un mensaje para Dante.
             </p>
           </div>
 
           {submittedMessage && (
             <div className="mt-6 rounded-2xl bg-[#f2f8f5] p-4 text-center ring-1 ring-[#a8c5b4] animate-pop">
               <p className="font-serif text-lg font-semibold text-ink">
-                ¡Gracias {submittedMessage.name}! ♡
+                Gracias, {submittedMessage.name}.
               </p>
               <p className="mt-1 font-display text-xl text-ink-soft">
-                Tu dedicatoria ya brilla en el Muro de Amor más abajo.
+                Tu mensaje ya está en el muro.
               </p>
               <a
                 href={getWhatsAppPersonalUrl(submittedMessage)}
@@ -391,7 +385,7 @@ function ConfirmAndGuestbookSection({
                 rel="noreferrer"
                 className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:brightness-105 active:scale-95 transition cursor-pointer"
               >
-                <span>💬</span> Avisar también a Giuliana por WhatsApp
+                <span>💬</span> Avisarle a Giuliana por WhatsApp
               </a>
             </div>
           )}
@@ -399,27 +393,27 @@ function ConfirmAndGuestbookSection({
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
               <label className="mb-1 block text-sm font-semibold uppercase tracking-[0.2em] text-gold-dark">
-                Tu nombre y apellido *
+                Tu nombre *
               </label>
               <input
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ej: Tía Marisa, Juan y Cami…"
+                placeholder="Ej: Marisa, Juan y Cami"
                 className="w-full rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-base text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
               />
             </div>
 
             <div>
               <label className="mb-1 block text-sm font-semibold uppercase tracking-[0.2em] text-gold-dark">
-                Un mensajito de amor para Dante *
+                Tu mensaje para Dante *
               </label>
               <textarea
                 required
                 rows={3}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Bienvenido al mundo, principito… Te estamos esperando con muchas ganas."
+                placeholder="Te esperamos, Dante."
                 className="w-full resize-none rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-base text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
               />
             </div>
@@ -428,28 +422,28 @@ function ConfirmAndGuestbookSection({
               type="submit"
               className="w-full min-h-[48px] rounded-full bg-gradient-to-r from-rose to-[#d4909b] py-3.5 px-6 text-base font-semibold text-white shadow-md shadow-rose/25 transition hover:brightness-105 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>♡</span> Confirmar y dejar mensajito en el muro
+              <span>♡</span> Confirmar y dejar un mensaje en el muro
             </button>
           </form>
         </div>
       </section>
 
-      {/* SECTION 2: Muro de Amor para Dante (Guestbook) */}
+      {/* SECTION 2: Muro de amor (Guestbook) */}
       <section id="muro-de-amor" className="mx-auto max-w-4xl px-4 scroll-mt-6">
         <div className="text-center">
           <span className="inline-block text-3xl animate-wiggle">✨</span>
           <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
-            Libro de recuerdos
+            Mensajes
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
-            Muro de Amor para Dante
+            Muro de amor
           </h2>
           <p className="mx-auto mt-2 max-w-lg font-display text-xl text-ink-soft sm:text-xl">
-            Dedicatorias que Dante leerá cuando sea grande para saber cuánto amor lo esperaba desde antes de nacer.
+            Mensajes que Dante va a leer cuando sea grande.
           </p>
 
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-[13px] sm:text-sm font-semibold text-gold-dark ring-1 ring-gold/30">
-            <span>💌 {messages.length} {messages.length === 1 ? "dedicatoria de amor" : "dedicatorias de amor"}</span>
+            <span>💌 {messages.length} {messages.length === 1 ? "mensaje" : "mensajes"}</span>
           </div>
         </div>
 
@@ -457,10 +451,10 @@ function ConfirmAndGuestbookSection({
           <div className="paper-grain rounded-2xl sm:rounded-3xl border border-dashed border-gold/40 bg-ivory/80 p-8 text-center mt-8">
             <span className="text-3xl">💌</span>
             <p className="mt-2 font-serif text-lg text-ink">
-              Aún no hay dedicatorias publicadas
+              Todavía no hay mensajes
             </p>
             <p className="mt-1 font-display text-xl italic text-ink-soft max-w-sm mx-auto">
-              Sé la primera persona en dejarle una dedicatoria de amor a Dante. Completá el formulario de arriba y tu mensaje aparecerá aquí ♡
+              Dejá el primero desde el formulario de arriba.
             </p>
           </div>
         ) : (
@@ -482,7 +476,7 @@ function ConfirmAndGuestbookSection({
                     </div>
 
                     <span className="rounded-full bg-sky/20 px-3 py-1 text-[13px] font-semibold text-sky-deep whitespace-nowrap">
-                      💙 ¡Confirmó asistencia!
+                      Confirmó
                     </span>
                   </div>
 
@@ -491,9 +485,6 @@ function ConfirmAndGuestbookSection({
                   </p>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end text-[13px] uppercase tracking-wider text-gold-dark/60">
-                  <span>Con todo el corazón</span>
-                </div>
               </div>
             ))}
           </div>
@@ -516,7 +507,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
           className="flex flex-1 items-center justify-center gap-1.5 rounded-[20px] bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-sm font-semibold leading-snug text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer text-center"
         >
           <span className="shrink-0">💌</span>
-          <span>Confirmar y dejar mensajito en el muro</span>
+          <span>Confirmar y dejar un mensaje en el muro</span>
         </button>
 
         <button
@@ -568,7 +559,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
         <p className="text-[13px] font-semibold uppercase tracking-[0.35em] text-gold-dark">
           Giuliana & Dante
         </p>
-        <p className="mt-1 font-script text-3xl text-ink sm:mt-2 sm:text-4xl">Una celebración de amor</p>
+        <p className="mt-1 font-script text-3xl text-ink sm:mt-2 sm:text-4xl">Te esperamos</p>
       </header>
 
       <section className="px-3 sm:px-4 animate-pop">
@@ -589,15 +580,10 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
           <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
             La historia
           </p>
-          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Un principito llamado Dante</h2>
+          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Por qué nos juntamos</h2>
           <p className="mt-3 font-display text-xl leading-relaxed text-ink-soft sm:mt-4 sm:text-xl">
-            En plena primavera argentina, cuando todo empieza a florecer, Giuliana
-            se prepara para el abrazo más grande de su vida. Dante ya eligió a su
-            mamá… y ahora quiere conocerte a vos.
-          </p>
-          <p className="mt-2.5 font-display text-xl leading-relaxed text-ink-soft sm:mt-3 sm:text-xl">
-            Por eso armamos este festejo tierno, divertido y lleno de globitos:
-            para celebrarlo entre las personas que más queremos.
+            Giuliana está por conocer a Dante. Antes de que llegue, quiere juntar
+            a la gente que más quiere.
           </p>
         </div>
       </section>
@@ -611,28 +597,24 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
             title="El día"
             onClick={() => scrollToSection("seccion-calendario")}
           >
-            Sábado 10 de octubre de 2026. Un sábado de sol, torta y
-            emoción. Llegá desde la 1:00 PM (13:00 hs)… o 13:15, somos argentinos.
+            Sábado 10 de octubre de 2026, desde las 13:00.
           </Detail>
           <Detail
             icon="📍"
             title="El lugar"
             onClick={() => scrollToSection("seccion-mapa")}
           >
-            Juan B. Justo 8917. Si te perdés, preguntá por el baby shower de
-            Giuliana: en el barrio ya todos saben.
+            Juan B. Justo 8917. Si te perdés, escribile a Giuliana.
           </Detail>
           <Detail icon="👗" title="Cómo venir">
-            Vení cómoda, con ganas de mimar al príncipe y lista para una foto
-            grupal que va a quedar para el álbum de Dante.
+            Vení cómoda. En algún momento sacamos una foto de todos.
           </Detail>
           <Detail
             icon="🎁"
-            title="Los regalitos"
+            title="Regalos"
             onClick={() => scrollToSection("seccion-deseos")}
           >
-            Lo más importante es que estés. Si querés traer algo, Dante va a
-            necesitar de todo… menos preocupaciones.
+            Lo importante es que vengas. Si querés traer algo, abajo hay ideas.
           </Detail>
         </div>
       </section>
@@ -649,7 +631,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
           <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
             El plan
           </p>
-          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Cómo va a ser el día</h2>
+          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Cómo va a ser</h2>
           <ul className="mt-5 space-y-3.5 sm:mt-6 sm:space-y-4">
             {ITINERARY.map((item) => (
               <li key={item.time} className="flex gap-3 sm:gap-4">
@@ -679,19 +661,18 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
       </section>
 
       <section id="seccion-deseos" className="mx-auto mt-14 max-w-3xl px-4 text-center sm:mt-20 scroll-mt-6">
-        <h2 className="font-script text-4xl text-ink sm:text-5xl">Si querés mimar a Dante</h2>
+        <h2 className="font-script text-4xl text-ink sm:text-5xl">Si querés traer algo</h2>
         <p className="mx-auto mt-2 max-w-lg font-display text-xl text-ink-soft sm:mt-3 sm:text-xl">
-          Dante todavía no tiene Instagram, pero sí una mini lista de deseos.
-          Cualquier cosa que elijas, va a usarse con mucho amor.
+          Algunas ideas. Cualquier cosa sirve.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8 sm:gap-3">
           {[
-            "Ropita 0 a 3 meses",
-            "Pañales (¡siempre!)",
-            "Mantitas suaves",
-            "Juguetes para descubrir",
-            "Libritos para soñar",
-            "Tu presencia ♡",
+            "Ropa 0 a 3 meses",
+            "Pañales",
+            "Mantas",
+            "Juguetes",
+            "Libros",
+            "Tu presencia",
           ].map((tag) => (
             <span
               key={tag}
@@ -760,7 +741,7 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
         />
         <p className="mt-4 font-script text-3xl text-ink sm:mt-5 sm:text-4xl">Con amor, Giuliana</p>
         <p className="mt-1 font-display text-xl italic text-ink-soft">
-          y un tal Dante que todavía no habla, pero ya manda besos.
+          y Dante, que todavía no habla.
         </p>
         <p className="mt-5 text-[13px] font-semibold uppercase tracking-[0.3em] text-gold-dark">
           10 · 10 · 2026
