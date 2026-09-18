@@ -363,7 +363,7 @@ function ConfirmAndGuestbookSection({
           <div className="text-center">
             <span className="inline-block text-2xl">💌</span>
             <p className="mt-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
-              Confirmar asistencia
+              Confirmar asistencia y mensajito
             </p>
             <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
               ¿Venís a celebrar?
@@ -424,7 +424,7 @@ function ConfirmAndGuestbookSection({
               type="submit"
               className="w-full min-h-[48px] rounded-full bg-gradient-to-r from-rose to-[#d4909b] py-3.5 px-6 text-base font-semibold text-white shadow-md shadow-rose/25 transition hover:brightness-105 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>♡</span> Confirmar y publicar dedicatoria
+              <span>♡</span> Confirmar y dejar mensajito en el muro
             </button>
           </form>
         </div>
@@ -508,19 +508,21 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
       <button
         type="button"
         onClick={() => scrollToSection("confirmar-asistencia")}
-        className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-4 py-2.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
+        className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
       >
         <span>💌</span>
-        <span>Confirmar asistencia</span>
+        <span className="hidden sm:inline">Confirmar y dejar mensajito en el muro</span>
+        <span className="sm:hidden">Confirmar y dejar mensajito</span>
       </button>
 
       <button
         type="button"
         onClick={() => scrollToSection("muro-de-amor")}
-        className="flex items-center gap-1.5 rounded-full bg-sand/60 px-4 py-2.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
+        className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
       >
         <span>✨</span>
-        <span>Muro de amor</span>
+        <span className="hidden sm:inline">Muro de amor</span>
+        <span className="sm:hidden">Muro</span>
         {totalMessages > 0 && (
           <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[11px] font-bold text-gold-dark">
             {totalMessages}
