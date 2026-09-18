@@ -1,11 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import {
-  babyFeet,
-  heroDream,
-  moonStars,
-  stork,
-  teddyBalloon,
-} from "../assets/images";
+import { heroDream, stork, teddyBalloon } from "../assets/images";
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -100,7 +94,8 @@ function useCountdown(target: Date) {
 }
 
 function Countdown() {
-  const target = useMemo(() => new Date("2026-10-10T13:00:00-03:00"), []);
+  // Fecha estimada de nacimiento, no la del baby shower.
+  const target = useMemo(() => new Date("2026-12-05T00:00:00-03:00"), []);
   const t = useCountdown(target);
   const units = [
     { label: "días", value: t.days },
@@ -110,24 +105,17 @@ function Countdown() {
   ];
 
   return (
-    <div
-      onClick={() => scrollToSection("seccion-itinerario")}
-      className="mx-auto max-w-lg cursor-pointer group transition-transform active:scale-[0.99]"
-      title="Toca para ver el cronograma del día"
-    >
-      <p className="mb-4 text-center font-display text-xl italic text-ink-soft sm:mb-5 sm:text-xl group-hover:text-ink transition-colors flex items-center justify-center gap-1.5">
-        <span>
-          {t.done
-            ? "Es hoy. Te esperamos."
-            : "Falta cada vez menos."}
-        </span>
-        <span className="text-[13px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↓</span>
+    <div className="mx-auto max-w-lg">
+      <p className="mb-4 text-center font-display text-xl italic text-ink-soft sm:mb-5 sm:text-xl">
+        {t.done
+          ? "Dante ya está por llegar."
+          : "Dante nace el 5 de diciembre de 2026, más o menos."}
       </p>
       <div className="grid grid-cols-4 gap-1.5 sm:gap-3">
         {units.map((u) => (
           <div
             key={u.label}
-            className="paper-grain rounded-xl bg-ivory/90 px-1 py-3 text-center shadow-xs ring-1 ring-gold/25 transition group-hover:ring-gold/50 sm:rounded-2xl sm:py-4 sm:shadow-sm"
+            className="paper-grain rounded-xl bg-ivory/90 px-1 py-3 text-center shadow-xs ring-1 ring-gold/25 sm:rounded-2xl sm:py-4 sm:shadow-sm"
           >
             <div className="font-serif text-3xl font-semibold text-ink sm:text-4xl">
               {String(u.value).padStart(2, "0")}
@@ -291,13 +279,6 @@ function whatsappUrl() {
   );
   return `https://wa.me/?text=${t}`;
 }
-
-const ITINERARY = [
-  { time: "13:00", title: "Recibimiento", note: "Llegada y brindis." },
-  { time: "13:30", title: "Juegos", note: "Un par, cortos." },
-  { time: "14:30", title: "Mesa dulce", note: "Facturas y torta." },
-  { time: "15:30", title: "Regalos", note: "Abrimos los regalos." },
-];
 
 export type GuestMessage = {
   id: string;
@@ -613,43 +594,9 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
       </section>
 
       <section className="mx-auto mt-14 max-w-3xl px-4 sm:mt-20">
-        <h2 className="text-center font-script text-4xl text-ink sm:text-5xl">La cuenta regresiva</h2>
+        <h2 className="text-center font-script text-4xl text-ink sm:text-5xl">Cuánto falta para conocerlo</h2>
         <div className="mt-6 sm:mt-8">
           <Countdown />
-        </div>
-      </section>
-
-      <section id="seccion-itinerario" className="mx-auto mt-14 grid max-w-4xl items-center gap-6 px-4 sm:mt-20 sm:gap-8 md:grid-cols-2 scroll-mt-6">
-        <div>
-          <p className="text-[13px] font-semibold uppercase tracking-[0.25em] text-gold-dark">
-            El plan
-          </p>
-          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Cómo va a ser</h2>
-          <ul className="mt-5 space-y-3.5 sm:mt-6 sm:space-y-4">
-            {ITINERARY.map((item) => (
-              <li key={item.time} className="flex gap-3 sm:gap-4">
-                <span className="w-14 shrink-0 pt-0.5 font-serif text-base font-semibold text-gold-dark sm:w-16">
-                  {item.time}
-                </span>
-                <span>
-                  <span className="block font-serif text-base text-ink sm:text-lg">{item.title}</span>
-                  <span className="font-display text-xl text-ink-soft">{item.note}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-          <img
-            src={babyFeet}
-            alt="Patitas de bebé envueltas en una mantita"
-            className="h-40 w-full rounded-2xl object-cover shadow-md ring-4 ring-ivory sm:h-52 sm:rounded-[24px]"
-          />
-          <img
-            src={moonStars}
-            alt="Lunita dormida entre estrellas"
-            className="mt-5 h-40 w-full rounded-2xl object-cover shadow-md ring-4 ring-ivory sm:mt-8 sm:h-52 sm:rounded-[24px]"
-          />
         </div>
       </section>
 
@@ -682,12 +629,19 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
         <p className="mt-1 text-center font-display text-xl text-ink-soft sm:mt-2 sm:text-xl">
           Juan B. Justo 8917
         </p>
+        {/* URL de embed directa: la vieja (maps.google.com/maps?output=embed)
+            respondia 301 hacia esta misma, y ese salto extra es lo que algunos
+            bloqueadores y filtros de DNS cortan. Sin loading="lazy", que era
+            otro punto donde el mapa podia quedarse sin cargar nunca.
+            Si aun asi el marco no carga, justo debajo esta el boton que abre
+            Google Maps en una pestaña aparte. */}
         <div className="mt-5 overflow-hidden rounded-2xl shadow-lg ring-4 ring-ivory sm:mt-6 sm:rounded-[28px]">
           <iframe
             title="Mapa de Juan B. Justo 8917"
-            src="https://maps.google.com/maps?q=Juan%20B%20Justo%208917&z=15&output=embed"
+            src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sJuan+B+Justo+8917!6i15"
             className="h-52 w-full border-0 grayscale-[20%] sm:h-80"
-            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
           />
         </div>
         <div id="seccion-calendario" className="mt-5 flex flex-col sm:flex-row flex-wrap justify-center gap-2.5 sm:gap-3 scroll-mt-6">
