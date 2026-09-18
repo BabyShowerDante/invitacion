@@ -86,12 +86,14 @@ export default function FloatingDecor() {
       {STARS.map((star, i) => (
         <span
           key={`s-${i}`}
-          className="absolute text-gold animate-twinkle"
+          className={`absolute text-gold animate-twinkle ${i > 8 ? "hidden sm:inline-block" : "inline-block"}`}
           style={{
             left: star.left,
             top: star.top,
             fontSize: star.size,
             animationDelay: star.delay,
+            willChange: "transform, opacity",
+            transform: "translate3d(0, 0, 0)",
           }}
         >
           ✦
@@ -101,12 +103,14 @@ export default function FloatingDecor() {
       {BALLOONS.map((b, i) => (
         <div
           key={`b-${i}`}
-          className="absolute bottom-[8%] animate-float"
+          className={`absolute bottom-[8%] animate-float ${i > 2 ? "hidden sm:block" : "block"}`}
           style={{
             left: b.left,
             animationDelay: b.delay,
             animationDuration: b.duration,
             ["--r" as string]: b.rotate,
+            willChange: "transform",
+            transform: "translate3d(0, 0, 0)",
           }}
         >
           <Balloon color={b.color} size={b.size} rotate={b.rotate} />

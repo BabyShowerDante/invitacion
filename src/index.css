@@ -245,10 +245,27 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  background-image: radial-gradient(#9a7844 0.75px, transparent 0.75px);
+  background-size: 8px 8px;
   border-radius: inherit;
+  transform: translateZ(0);
+}
+
+@keyframes highlight-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(196, 163, 106, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(196, 163, 106, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(196, 163, 106, 0);
+  }
+}
+
+.highlight-action {
+  animation: highlight-pulse 1.6s ease-out;
 }
 
 .wax-seal {

@@ -127,12 +127,16 @@ export default function Envelope({ opening, onOpen }: Props) {
 
           {/* wax seal */}
           <div
-            className="absolute left-1/2 z-[7] -translate-x-1/2"
+            className="absolute z-[7]"
             style={{
-              top: "30%",
+              top: "42%",
+              left: "50%",
               opacity: opening ? 0 : 1,
-              transform: opening ? "translate(-50%, -10px) scale(1.4)" : "translateX(-50%) scale(1)",
-              transition: "opacity 0.35s ease, transform 0.35s ease",
+              transform: opening
+                ? "translate3d(-50%, calc(-50% - 14px), 0) scale(1.35)"
+                : "translate3d(-50%, -50%, 0) scale(1)",
+              transition: "opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)",
+              willChange: "transform, opacity",
             }}
           >
             <div className="wax-seal relative flex h-[66px] w-[66px] sm:h-[74px] sm:w-[74px] items-center justify-center shadow-lg group-hover:scale-105 active:scale-95 transition-transform">
