@@ -59,21 +59,21 @@ function Countdown() {
 
   return (
     <div className="mx-auto max-w-lg">
-      <p className="mb-5 text-center font-display text-lg italic text-ink-soft">
+      <p className="mb-4 text-center font-display text-base italic text-ink-soft sm:mb-5 sm:text-lg">
         {t.done
           ? "¡Hoy es el gran día! Dante ya está listo para los mimos."
           : "Dante cuenta las pataditas que faltan…"}
       </p>
-      <div className="grid grid-cols-4 gap-2 sm:gap-3">
+      <div className="grid grid-cols-4 gap-1.5 sm:gap-3">
         {units.map((u) => (
           <div
             key={u.label}
-            className="paper-grain rounded-2xl bg-ivory/90 px-1 py-4 text-center shadow-sm ring-1 ring-gold/25"
+            className="paper-grain rounded-xl bg-ivory/90 px-1 py-3 text-center shadow-xs ring-1 ring-gold/25 sm:rounded-2xl sm:py-4 sm:shadow-sm"
           >
-            <div className="font-serif text-3xl font-semibold text-ink sm:text-4xl">
+            <div className="font-serif text-2xl font-semibold text-ink sm:text-4xl">
               {String(u.value).padStart(2, "0")}
             </div>
-            <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-dark">
+            <div className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-gold-dark sm:mt-1 sm:text-[10px] sm:tracking-[0.22em]">
               {u.label}
             </div>
           </div>
@@ -88,12 +88,14 @@ function InviteCard() {
 
   return (
     <article
-      className="invite-shadow paper-grain relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[28px] bg-ivory"
+      className="invite-shadow paper-grain relative mx-auto w-full max-w-[440px] overflow-hidden rounded-[24px] bg-ivory sm:rounded-[28px]"
       onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        setTilt({ x: y * -7, y: x * 8 });
+        if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+          const r = e.currentTarget.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          setTilt({ x: y * -7, y: x * 8 });
+        }
       }}
       onMouseLeave={() => setTilt({ x: 0, y: 0 })}
       style={{
@@ -104,66 +106,66 @@ function InviteCard() {
       <img
         src={floralCorner}
         alt=""
-        className="pointer-events-none absolute -left-8 -top-8 h-36 w-36 opacity-70"
+        className="pointer-events-none absolute -left-5 -top-5 h-24 w-24 opacity-70 sm:-left-8 sm:-top-8 sm:h-36 sm:w-36"
       />
       <img
         src={floralCorner}
         alt=""
-        className="pointer-events-none absolute -bottom-10 -right-8 h-36 w-36 rotate-180 opacity-70"
+        className="pointer-events-none absolute -bottom-6 -right-5 h-24 w-24 rotate-180 opacity-70 sm:-bottom-10 sm:-right-8 sm:h-36 sm:w-36"
       />
 
-      <div className="relative px-6 pb-10 pt-8 sm:px-8">
-        <p className="text-center text-[11px] font-semibold uppercase tracking-[0.42em] text-gold-dark">
+      <div className="relative px-5 pb-8 pt-7 sm:px-8 sm:pb-10 sm:pt-8">
+        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.34em] text-gold-dark sm:text-[11px] sm:tracking-[0.42em]">
           Estás invitada · invitado
         </p>
 
-        <h2 className="mt-3 text-center font-serif text-[13px] font-medium uppercase tracking-[0.45em] text-ink">
+        <h2 className="mt-2 text-center font-serif text-xs font-medium uppercase tracking-[0.38em] text-ink sm:mt-3 sm:text-[13px] sm:tracking-[0.45em]">
           Baby Shower
         </h2>
 
-        <div className="relative mx-auto mt-6 overflow-hidden rounded-[22px] shadow-md">
+        <div className="relative mx-auto mt-5 overflow-hidden rounded-[18px] shadow-md sm:mt-6 sm:rounded-[22px]">
           <img
             src={heroDream}
             alt="Un bebé dormido entre nubes y un osito de peluche"
-            className="h-52 w-full object-cover sm:h-60"
+            className="h-44 w-full object-cover sm:h-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ivory/70 via-transparent to-transparent" />
         </div>
 
-        <p className="mt-7 text-center font-display text-xl italic text-ink-soft">
+        <p className="mt-6 text-center font-display text-lg italic text-ink-soft sm:mt-7 sm:text-xl">
           Giuliana celebra la llegada de su
         </p>
 
-        <h1 className="foil-text mt-1 text-center font-script text-7xl leading-none sm:text-8xl">
+        <h1 className="foil-text mt-1 text-center font-script text-6xl leading-none sm:text-7xl md:text-8xl">
           Dante
         </h1>
 
-        <Flourish className="mx-auto mt-4 h-7 w-48 text-gold" />
+        <Flourish className="mx-auto mt-3 h-6 w-40 text-gold sm:mt-4 sm:h-7 sm:w-48" />
 
-        <p className="mx-auto mt-5 max-w-xs text-center font-display text-[17px] leading-relaxed text-ink">
+        <p className="mx-auto mt-4 max-w-xs text-center font-display text-[15px] leading-relaxed text-ink sm:mt-5 sm:text-[17px]">
           Un principito de primavera que ya quiere conocerte, llenarte de babitas
           y robarte el corazón.
         </p>
 
-        <div className="mx-auto mt-8 space-y-4 rounded-2xl bg-sand/50 px-5 py-6 text-center ring-1 ring-gold/20">
+        <div className="mx-auto mt-6 space-y-3 rounded-xl bg-sand/50 px-4 py-5 text-center ring-1 ring-gold/20 sm:mt-8 sm:space-y-4 sm:rounded-2xl sm:px-5 sm:py-6">
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-gold-dark sm:text-[10px] sm:tracking-[0.28em]">
               Cuándo
             </p>
-            <p className="mt-1 font-serif text-lg text-ink">Sábado 10 de octubre</p>
-            <p className="font-display text-ink-soft">2026 · 1:00 PM</p>
+            <p className="mt-0.5 font-serif text-base text-ink sm:mt-1 sm:text-lg">Sábado 10 de octubre</p>
+            <p className="font-display text-sm text-ink-soft sm:text-base">2026 · 1:00 PM</p>
           </div>
           <div className="gold-line" />
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold-dark">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-gold-dark sm:text-[10px] sm:tracking-[0.28em]">
               Dónde
             </p>
-            <p className="mt-1 font-serif text-lg text-ink">Juan B. Justo 8917</p>
-            <p className="font-display text-ink-soft">Traé el corazón (y ganas de celebrar)</p>
+            <p className="mt-0.5 font-serif text-base text-ink sm:mt-1 sm:text-lg">Juan B. Justo 8917</p>
+            <p className="font-display text-sm text-ink-soft sm:text-base">Traé el corazón (y ganas de celebrar)</p>
           </div>
         </div>
 
-        <p className="mt-7 text-center font-display text-base italic text-ink-soft">
+        <p className="mt-6 text-center font-display text-sm italic text-ink-soft sm:mt-7 sm:text-base">
           “Hay milagros que se celebran con globitos,
           <br />
           facturas y mucho, mucho amor.”
@@ -183,10 +185,10 @@ function Detail({
   children: ReactNode;
 }) {
   return (
-    <div className="paper-grain rounded-3xl bg-ivory/90 p-6 shadow-sm ring-1 ring-gold/15">
-      <div className="mb-3 text-2xl">{icon}</div>
-      <h3 className="font-serif text-xl text-ink">{title}</h3>
-      <div className="mt-2 font-display text-[16px] leading-relaxed text-ink-soft">
+    <div className="paper-grain rounded-2xl bg-ivory/90 p-5 shadow-xs ring-1 ring-gold/15 sm:rounded-3xl sm:p-6 sm:shadow-sm">
+      <div className="mb-2 text-2xl sm:mb-3">{icon}</div>
+      <h3 className="font-serif text-lg text-ink sm:text-xl">{title}</h3>
+      <div className="mt-1.5 font-display text-[15px] leading-relaxed text-ink-soft sm:mt-2 sm:text-[16px]">
         {children}
       </div>
     </div>
@@ -223,49 +225,49 @@ const ITINERARY = [
 
 export default function Invitation() {
   return (
-    <div className="relative z-10 pb-24">
-      <header className="px-4 pb-6 pt-10 text-center animate-fade-up">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-gold-dark">
+    <div className="relative z-10 pb-14 sm:pb-24">
+      <header className="px-4 pb-4 pt-8 text-center sm:pb-6 sm:pt-10 animate-fade-up">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-gold-dark sm:text-[11px] sm:tracking-[0.4em]">
           Giuliana & Dante
         </p>
-        <p className="mt-2 font-script text-3xl text-ink">Una celebración de amor</p>
+        <p className="mt-1 font-script text-2xl text-ink sm:mt-2 sm:text-3xl">Una celebración de amor</p>
       </header>
 
-      <section className="px-4 animate-pop">
+      <section className="px-3 sm:px-4 animate-pop">
         <InviteCard />
       </section>
 
-      <div className="mt-10 flex justify-center">
+      <div className="mt-6 flex justify-center sm:mt-10">
         <span className="animate-bounce text-gold">↓</span>
       </div>
 
-      <section className="mx-auto mt-16 grid max-w-4xl items-center gap-8 px-4 md:grid-cols-2">
+      <section className="mx-auto mt-12 grid max-w-4xl items-center gap-6 px-4 sm:mt-16 sm:gap-8 md:grid-cols-2">
         <img
           src={stork}
           alt="Cigüeña llevando un paquetito celeste"
-          className="h-72 w-full rounded-[28px] object-cover shadow-lg ring-4 ring-ivory"
+          className="h-56 w-full rounded-2xl object-cover shadow-lg ring-4 ring-ivory sm:h-72 sm:rounded-[28px]"
         />
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-dark">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-dark sm:text-[11px] sm:tracking-[0.3em]">
             La historia
           </p>
-          <h2 className="mt-2 font-script text-5xl text-ink">Un principito llamado Dante</h2>
-          <p className="mt-4 font-display text-lg leading-relaxed text-ink-soft">
+          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Un principito llamado Dante</h2>
+          <p className="mt-3 font-display text-base leading-relaxed text-ink-soft sm:mt-4 sm:text-lg">
             En plena primavera argentina, cuando todo empieza a florecer, Giuliana
             se prepara para el abrazo más grande de su vida. Dante ya eligió a su
             mamá… y ahora quiere conocerte a vos.
           </p>
-          <p className="mt-3 font-display text-lg leading-relaxed text-ink-soft">
+          <p className="mt-2.5 font-display text-base leading-relaxed text-ink-soft sm:mt-3 sm:text-lg">
             Por eso armamos este festejo tierno, divertido y lleno de globitos:
             para celebrarlo entre las personas que más queremos.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-4xl px-4">
-        <h2 className="text-center font-script text-5xl text-ink">Lo que tenés que saber</h2>
-        <Flourish className="mx-auto mt-2 h-7 w-40 text-gold" />
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      <section className="mx-auto mt-14 max-w-4xl px-4 sm:mt-20">
+        <h2 className="text-center font-script text-4xl text-ink sm:text-5xl">Lo que tenés que saber</h2>
+        <Flourish className="mx-auto mt-2 h-6 w-36 text-gold sm:h-7 sm:w-40" />
+        <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-4 sm:grid-cols-2">
           <Detail icon="📅" title="El día">
             Sábado 10 de octubre de 2026. Un sábado de sol, torta y
             emoción. Llegá desde la 1:00 PM (13:00 hs)… o 13:15, somos argentinos.
@@ -285,54 +287,54 @@ export default function Invitation() {
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-3xl px-4">
-        <h2 className="text-center font-script text-5xl text-ink">La cuenta regresiva</h2>
-        <div className="mt-8">
+      <section className="mx-auto mt-14 max-w-3xl px-4 sm:mt-20">
+        <h2 className="text-center font-script text-4xl text-ink sm:text-5xl">La cuenta regresiva</h2>
+        <div className="mt-6 sm:mt-8">
           <Countdown />
         </div>
       </section>
 
-      <section className="mx-auto mt-20 grid max-w-4xl items-center gap-8 px-4 md:grid-cols-2">
+      <section className="mx-auto mt-14 grid max-w-4xl items-center gap-6 px-4 sm:mt-20 sm:gap-8 md:grid-cols-2">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-dark">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-dark sm:text-[11px] sm:tracking-[0.3em]">
             El plan
           </p>
-          <h2 className="mt-2 font-script text-5xl text-ink">Cómo va a ser el día</h2>
-          <ul className="mt-6 space-y-4">
+          <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Cómo va a ser el día</h2>
+          <ul className="mt-5 space-y-3.5 sm:mt-6 sm:space-y-4">
             {ITINERARY.map((item) => (
-              <li key={item.time} className="flex gap-4">
-                <span className="w-16 shrink-0 pt-1 font-serif text-sm text-gold-dark">
+              <li key={item.time} className="flex gap-3 sm:gap-4">
+                <span className="w-14 shrink-0 pt-0.5 font-serif text-sm font-semibold text-gold-dark sm:w-16">
                   {item.time}
                 </span>
                 <span>
-                  <span className="block font-serif text-lg text-ink">{item.title}</span>
-                  <span className="font-display text-ink-soft">{item.note}</span>
+                  <span className="block font-serif text-base text-ink sm:text-lg">{item.title}</span>
+                  <span className="font-display text-sm text-ink-soft sm:text-base">{item.note}</span>
                 </span>
               </li>
             ))}
           </ul>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
           <img
             src={babyFeet}
             alt="Patitas de bebé envueltas en una mantita"
-            className="h-52 w-full rounded-[24px] object-cover shadow-md ring-4 ring-ivory"
+            className="h-40 w-full rounded-2xl object-cover shadow-md ring-4 ring-ivory sm:h-52 sm:rounded-[24px]"
           />
           <img
             src={moonStars}
             alt="Lunita dormida entre estrellas"
-            className="mt-8 h-52 w-full rounded-[24px] object-cover shadow-md ring-4 ring-ivory"
+            className="mt-5 h-40 w-full rounded-2xl object-cover shadow-md ring-4 ring-ivory sm:mt-8 sm:h-52 sm:rounded-[24px]"
           />
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-3xl px-4 text-center">
-        <h2 className="font-script text-5xl text-ink">Si querés mimar a Dante</h2>
-        <p className="mx-auto mt-3 max-w-lg font-display text-lg text-ink-soft">
+      <section className="mx-auto mt-14 max-w-3xl px-4 text-center sm:mt-20">
+        <h2 className="font-script text-4xl text-ink sm:text-5xl">Si querés mimar a Dante</h2>
+        <p className="mx-auto mt-2 max-w-lg font-display text-base text-ink-soft sm:mt-3 sm:text-lg">
           Dante todavía no tiene Instagram, pero sí una mini lista de deseos.
           Cualquier cosa que elijas, va a usarse con mucho amor.
         </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mt-6 flex flex-wrap justify-center gap-2 sm:mt-8 sm:gap-3">
           {[
             "Ropita 0 a 3 meses",
             "Pañales (¡siempre!)",
@@ -343,7 +345,7 @@ export default function Invitation() {
           ].map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-ivory px-4 py-2 font-display text-sm text-ink ring-1 ring-gold/25"
+              className="rounded-full bg-ivory px-3.5 py-1.5 font-display text-xs text-ink ring-1 ring-gold/25 shadow-xs sm:px-4 sm:py-2 sm:text-sm"
             >
               {tag}
             </span>
@@ -351,59 +353,58 @@ export default function Invitation() {
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-3xl px-4">
-        <h2 className="text-center font-script text-5xl text-ink">Cómo llegar</h2>
-        <p className="mt-2 text-center font-display text-lg text-ink-soft">
+      <section className="mx-auto mt-14 max-w-3xl px-4 sm:mt-20">
+        <h2 className="text-center font-script text-4xl text-ink sm:text-5xl">Cómo llegar</h2>
+        <p className="mt-1 text-center font-display text-base text-ink-soft sm:mt-2 sm:text-lg">
           Juan B. Justo 8917
         </p>
-        <div className="mt-6 overflow-hidden rounded-[28px] shadow-lg ring-4 ring-ivory">
+        <div className="mt-5 overflow-hidden rounded-2xl shadow-lg ring-4 ring-ivory sm:mt-6 sm:rounded-[28px]">
           <iframe
             title="Mapa de Juan B. Justo 8917"
             src="https://maps.google.com/maps?q=Juan%20B%20Justo%208917&z=15&output=embed"
-            className="h-64 w-full border-0 grayscale-[20%] sm:h-80"
+            className="h-52 w-full border-0 grayscale-[20%] sm:h-80"
             loading="lazy"
           />
         </div>
-        <div className="mt-5 flex flex-wrap justify-center gap-3">
+        <div className="mt-5 flex flex-col sm:flex-row flex-wrap justify-center gap-2.5 sm:gap-3">
           <a
             href={mapsUrl()}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-sky px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:brightness-105"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-sky px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto sm:text-base"
           >
-            Abrir en Maps
+            <span>📍</span> Abrir en Google Maps
           </a>
           <a
             href={calendarUrl()}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:brightness-105"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto sm:text-base"
           >
-            Agendar en el celu
+            <span>📅</span> Agendar en el celu
           </a>
           <a
             href={whatsappUrl()}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:brightness-105"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto sm:text-base"
           >
-            Compartir por WhatsApp
+            <span>💬</span> Compartir por WhatsApp
           </a>
         </div>
       </section>
 
-
-      <footer className="mx-auto mt-20 max-w-lg px-4 text-center">
+      <footer className="mx-auto mt-14 max-w-lg px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-center sm:mt-20">
         <img
           src={teddyBalloon}
           alt=""
-          className="mx-auto h-20 w-20 rounded-full object-cover shadow animate-wiggle"
+          className="mx-auto h-16 w-16 rounded-full object-cover shadow animate-wiggle sm:h-20 sm:w-20"
         />
-        <p className="mt-5 font-script text-4xl text-ink">Con amor, Giuliana</p>
-        <p className="mt-1 font-display italic text-ink-soft">
+        <p className="mt-4 font-script text-3xl text-ink sm:mt-5 sm:text-4xl">Con amor, Giuliana</p>
+        <p className="mt-1 font-display text-sm italic text-ink-soft sm:text-base">
           y un tal Dante que todavía no habla, pero ya manda besos.
         </p>
-        <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-gold-dark">
+        <p className="mt-5 text-[10px] uppercase tracking-[0.3em] text-gold-dark sm:mt-6 sm:text-[11px]">
           10 · 10 · 2026
         </p>
       </footer>

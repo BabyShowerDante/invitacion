@@ -197,6 +197,12 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 html,
 body,
 #root {
@@ -209,6 +215,8 @@ body {
   color: var(--color-ink);
   background: #f7efe4;
   overflow-x: hidden;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 .foil-text {
@@ -279,6 +287,12 @@ select,
 textarea,
 button {
   font-family: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 @media (prefers-reduced-motion: reduce) {

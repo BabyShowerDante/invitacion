@@ -27,7 +27,7 @@ export default function App() {
   }, [confetti]);
 
   return (
-    <div className="relative min-h-screen font-sans text-ink">
+    <div className="relative min-h-[100dvh] w-full overflow-x-hidden font-sans text-ink">
       <div className="fixed inset-0 -z-10">
         <img
           src={cloudStars}
