@@ -58,7 +58,6 @@ function CornerOrnament({ className = "" }: { className?: string }) {
         strokeWidth="0.8"
         opacity="0.5"
       />
-      {/* Delicate leaves */}
       <path
         d="M28 28 C34 20 46 22 44 32 C40 38 30 34 28 28 Z"
         fill="#A8C5B4"
@@ -74,7 +73,6 @@ function CornerOrnament({ className = "" }: { className?: string }) {
         fill="#A8C5B4"
         opacity="0.65"
       />
-      {/* Soft stars and buds */}
       <circle cx="16" cy="16" r="3" fill="#C4A36A" opacity="0.9" />
       <circle cx="70" cy="10" r="2" fill="#C4A36A" opacity="0.75" />
       <circle cx="10" cy="70" r="2" fill="#C4A36A" opacity="0.75" />
@@ -131,10 +129,10 @@ function Countdown() {
             key={u.label}
             className="paper-grain rounded-xl bg-ivory/90 px-1 py-3 text-center shadow-xs ring-1 ring-gold/25 transition group-hover:ring-gold/50 sm:rounded-2xl sm:py-4 sm:shadow-sm"
           >
-            <div className="font-serif text-2xl font-semibold text-ink sm:text-4xl">
+            <div className="font-serif text-3xl font-semibold text-ink sm:text-4xl">
               {String(u.value).padStart(2, "0")}
             </div>
-            <div className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-gold-dark sm:mt-1 sm:text-[10px] sm:tracking-[0.22em]">
+            <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-gold-dark">
               {u.label}
             </div>
           </div>
@@ -168,11 +166,11 @@ function InviteCard() {
       <CornerOrnament className="-bottom-1 -right-1 h-24 w-24 rotate-180 sm:h-28 sm:w-28" />
 
       <div className="relative px-5 pb-8 pt-7 sm:px-8 sm:pb-10 sm:pt-8">
-        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.34em] text-gold-dark sm:text-[11px] sm:tracking-[0.42em]">
+        <p className="text-center text-xs font-semibold uppercase tracking-[0.3em] text-gold-dark">
           Estás invitada · invitado
         </p>
 
-        <h2 className="mt-2 text-center font-serif text-xs font-medium uppercase tracking-[0.38em] text-ink sm:mt-3 sm:text-[13px] sm:tracking-[0.45em]">
+        <h2 className="mt-2 text-center font-serif text-sm font-medium uppercase tracking-[0.35em] text-ink sm:mt-2.5">
           Baby Shower
         </h2>
 
@@ -180,12 +178,12 @@ function InviteCard() {
           <img
             src={heroDream}
             alt="Un bebé dormido entre nubes y un osito de peluche"
-            className="h-44 w-full object-cover sm:h-60"
+            className="h-48 w-full object-cover sm:h-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ivory/70 via-transparent to-transparent" />
         </div>
 
-        <p className="mt-6 text-center font-display text-lg italic text-ink-soft sm:mt-7 sm:text-xl">
+        <p className="mt-6 text-center font-display text-xl italic text-ink-soft">
           Giuliana celebra la llegada de su
         </p>
 
@@ -195,7 +193,7 @@ function InviteCard() {
 
         <Flourish className="mx-auto mt-3 h-6 w-40 text-gold sm:mt-4 sm:h-7 sm:w-48" />
 
-        <p className="mx-auto mt-4 max-w-xs text-center font-display text-[15px] leading-relaxed text-ink sm:mt-5 sm:text-[17px]">
+        <p className="mx-auto mt-4 max-w-xs text-center font-display text-base leading-relaxed text-ink sm:mt-5 sm:text-lg">
           Un principito de primavera que ya quiere conocerte, llenarte de babitas
           y robarte el corazón.
         </p>
@@ -207,15 +205,15 @@ function InviteCard() {
             className="group block w-full rounded-xl p-2.5 transition hover:bg-ivory/80 active:scale-[0.98] cursor-pointer text-center"
             title="Toca para ir a agendar en tu calendario"
           >
-            <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-gold-dark flex items-center justify-center gap-1 sm:text-[10px] sm:tracking-[0.28em]">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark flex items-center justify-center gap-1">
               <span>Cuándo</span>
-              <span className="text-[10px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
+              <span className="text-xs text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
             </p>
             <p className="mt-0.5 font-serif text-base text-ink group-hover:text-gold-dark transition-colors sm:mt-1 sm:text-lg">
               Sábado 10 de octubre
             </p>
-            <p className="font-display text-sm text-ink-soft sm:text-base">
-              2026 · 1:00 PM <span className="ml-1 text-xs text-gold underline underline-offset-2 opacity-80 group-hover:opacity-100">Agendar</span>
+            <p className="font-display text-base text-ink-soft">
+              2026 · 1:00 PM <span className="ml-1 text-sm text-gold underline underline-offset-2 opacity-85 group-hover:opacity-100">Agendar</span>
             </p>
           </button>
 
@@ -227,20 +225,20 @@ function InviteCard() {
             className="group block w-full rounded-xl p-2.5 transition hover:bg-ivory/80 active:scale-[0.98] cursor-pointer text-center"
             title="Toca para ir al mapa de ubicación"
           >
-            <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-gold-dark flex items-center justify-center gap-1 sm:text-[10px] sm:tracking-[0.28em]">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark flex items-center justify-center gap-1">
               <span>Dónde</span>
-              <span className="text-[10px] text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
+              <span className="text-xs text-gold opacity-60 group-hover:opacity-100 transition-opacity">↗</span>
             </p>
             <p className="mt-0.5 font-serif text-base text-ink group-hover:text-gold-dark transition-colors sm:mt-1 sm:text-lg">
               Juan B. Justo 8917
             </p>
-            <p className="font-display text-sm text-ink-soft sm:text-base">
-              Traé el corazón <span className="ml-1 text-xs text-sky-deep underline underline-offset-2 opacity-80 group-hover:opacity-100">Ver mapa</span>
+            <p className="font-display text-base text-ink-soft">
+              Traé el corazón <span className="ml-1 text-sm text-sky-deep underline underline-offset-2 opacity-85 group-hover:opacity-100">Ver mapa</span>
             </p>
           </button>
         </div>
 
-        <p className="mt-6 text-center font-display text-sm italic text-ink-soft sm:mt-7 sm:text-base">
+        <p className="mt-6 text-center font-display text-base italic text-ink-soft">
           “Hay milagros que se celebran con globitos,
           <br />
           facturas y mucho, mucho amor.”
@@ -273,7 +271,7 @@ function Detail({
         <span>{title}</span>
         {onClick && <span className="text-xs text-gold opacity-60">↗</span>}
       </h3>
-      <div className="mt-1.5 font-display text-[15px] leading-relaxed text-ink-soft sm:mt-2 sm:text-[16px]">
+      <div className="mt-2 font-display text-base leading-relaxed text-ink-soft">
         {children}
       </div>
     </div>
@@ -310,51 +308,10 @@ const ITINERARY = [
 export type GuestMessage = {
   id: string;
   name: string;
-  attending: "si" | "talvez" | "no";
-  guests: string;
   message: string;
   createdAt: string;
   relativeTime: string;
 };
-
-const SEED_MESSAGES: GuestMessage[] = [
-  {
-    id: "seed-1",
-    name: "Abuela Mirta",
-    attending: "si",
-    guests: "2",
-    message: "¡Esperándote con todo mi amor mi principito hermoso! La abuela ya tiene la mantita tejida lista.",
-    createdAt: "2026-09-17T14:30:00Z",
-    relativeTime: "Ayer",
-  },
-  {
-    id: "seed-2",
-    name: "Tía Vale y Primo Benja",
-    attending: "si",
-    guests: "2",
-    message: "¡Contando los días para llenarte de mimos y besitos! Giuliana vas a ser la mamá más hermosa.",
-    createdAt: "2026-09-17T18:15:00Z",
-    relativeTime: "Ayer",
-  },
-  {
-    id: "seed-3",
-    name: "Sofi & Lucas",
-    attending: "si",
-    guests: "2",
-    message: "¡Presentes de cabeza! No nos perdemos este fiestón por nada. ¡Los queremos infinito!",
-    createdAt: "2026-09-18T09:20:00Z",
-    relativeTime: "Hace unas horas",
-  },
-  {
-    id: "seed-4",
-    name: "Madrina Cami ♡",
-    attending: "si",
-    guests: "1",
-    message: "Mi ahijado amado, ya te amo antes de conocerte. ¡Ahí estaré en primera fila para abrazar a mamá y celebrarte!",
-    createdAt: "2026-09-18T10:45:00Z",
-    relativeTime: "Hace un momento",
-  },
-];
 
 const STORAGE_KEY = "dante_guestbook_messages";
 
@@ -366,8 +323,6 @@ function ConfirmAndGuestbookSection({
   onAddMessage: (msg: GuestMessage) => void;
 }) {
   const [name, setName] = useState("");
-  const [attending, setAttending] = useState<"si" | "talvez" | "no">("si");
-  const [guests, setGuests] = useState("1");
   const [note, setNote] = useState("");
   const [submittedMessage, setSubmittedMessage] = useState<GuestMessage | null>(null);
 
@@ -378,8 +333,6 @@ function ConfirmAndGuestbookSection({
     const newMsg: GuestMessage = {
       id: "msg-" + Date.now(),
       name: name.trim(),
-      attending,
-      guests,
       message: note.trim(),
       createdAt: new Date().toISOString(),
       relativeTime: "Recién",
@@ -390,26 +343,17 @@ function ConfirmAndGuestbookSection({
     setName("");
     setNote("");
 
-    // Automatically scroll smoothly to love wall so they see their note!
     window.setTimeout(() => {
       scrollToSection("muro-de-amor");
     }, 400);
   };
 
   const getWhatsAppPersonalUrl = (msg: GuestMessage) => {
-    const statusText =
-      msg.attending === "si"
-        ? "¡Confirmo que voy! 💙"
-        : msg.attending === "talvez"
-        ? "Voy a hacer todo lo posible por ir ✨"
-        : "No voy a poder llegar, pero los acompaño con todo mi corazón 🤍";
     const text = encodeURIComponent(
-      `¡Hola Giuliana! ${statusText}\nSoy ${msg.name} (${msg.guests} pers.)\n\nMi mensajito para Dante:\n"${msg.message}"\n\n¡Nos vemos el 10 de octubre a la 1:00 PM! 👶🍼`,
+      `¡Hola Giuliana! Confirmo mi asistencia al Baby Shower de Dante 💙\nSoy ${msg.name}\n\nMi mensajito para Dante:\n"${msg.message}"\n\n¡Nos vemos el 10 de octubre a la 1:00 PM! 👶🍼`,
     );
     return `https://wa.me/?text=${text}`;
   };
-
-  const confirmedCount = messages.filter((m) => m.attending === "si").length;
 
   return (
     <div className="space-y-16 sm:space-y-20">
@@ -418,7 +362,7 @@ function ConfirmAndGuestbookSection({
         <div className="paper-grain rounded-3xl bg-ivory p-6 shadow-md ring-1 ring-gold/25 sm:p-8">
           <div className="text-center">
             <span className="inline-block text-2xl">💌</span>
-            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-gold-dark sm:text-[11px] sm:tracking-[0.3em]">
+            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
               Confirmar asistencia
             </p>
             <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
@@ -434,14 +378,14 @@ function ConfirmAndGuestbookSection({
               <p className="font-serif text-lg font-semibold text-ink">
                 ¡Gracias {submittedMessage.name}! ♡
               </p>
-              <p className="mt-1 font-display text-sm text-ink-soft">
+              <p className="mt-1 font-display text-base text-ink-soft">
                 Tu dedicatoria ya brilla en el Muro de Amor más abajo.
               </p>
               <a
                 href={getWhatsAppPersonalUrl(submittedMessage)}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm hover:brightness-105 active:scale-95 transition"
+                className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:brightness-105 active:scale-95 transition cursor-pointer"
               >
                 <span>💬</span> Avisar también a Giuliana por WhatsApp
               </a>
@@ -450,7 +394,7 @@ function ConfirmAndGuestbookSection({
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
-              <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-dark sm:text-[11px]">
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark">
                 Tu nombre y apellido *
               </label>
               <input
@@ -458,54 +402,12 @@ function ConfirmAndGuestbookSection({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ej: Tía Marisa, Juan y Cami…"
-                className="w-full rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
+                className="w-full rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-base text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
               />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-dark sm:text-[11px]">
-                ¿Venís a mimar al príncipe?
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { id: "si", label: "¡Obvio que sí! 💙" },
-                  { id: "talvez", label: "Hago fuerza ✨" },
-                  { id: "no", label: "De corazón 🤍" },
-                ].map((opt) => (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => setAttending(opt.id as "si" | "talvez" | "no")}
-                    className={`rounded-2xl px-2 py-3 text-xs sm:text-sm font-semibold transition cursor-pointer active:scale-95 text-center ${
-                      attending === opt.id
-                        ? "bg-sky text-white shadow-sm"
-                        : "bg-cream text-ink-soft ring-1 ring-gold/20 hover:bg-sand"
-                    }`}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-dark sm:text-[11px]">
-                ¿Cuántos vienen?
-              </label>
-              <select
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
-                className="w-full rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-ink outline-none ring-gold/40 focus:ring-2 cursor-pointer"
-              >
-                <option value="1">1 personita (voy yo solo/a)</option>
-                <option value="2">2 personitas (voy acompañado/a)</option>
-                <option value="3">3 personitas</option>
-                <option value="4">4 o más · ¡familia completa!</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-dark sm:text-[11px]">
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-[0.2em] text-gold-dark">
                 Un mensajito de amor para Dante *
               </label>
               <textarea
@@ -514,13 +416,13 @@ function ConfirmAndGuestbookSection({
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Bienvenido al mundo, principito… Te estamos esperando con muchas ganas."
-                className="w-full resize-none rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
+                className="w-full resize-none rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-base text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full min-h-[48px] rounded-full bg-gradient-to-r from-rose to-[#d4909b] py-3.5 px-6 font-semibold text-white shadow-md shadow-rose/25 transition hover:brightness-105 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+              className="w-full min-h-[48px] rounded-full bg-gradient-to-r from-rose to-[#d4909b] py-3.5 px-6 text-base font-semibold text-white shadow-md shadow-rose/25 transition hover:brightness-105 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
             >
               <span>♡</span> Confirmar y publicar dedicatoria
             </button>
@@ -532,7 +434,7 @@ function ConfirmAndGuestbookSection({
       <section id="muro-de-amor" className="mx-auto max-w-4xl px-4 scroll-mt-6">
         <div className="text-center">
           <span className="inline-block text-3xl animate-wiggle">✨</span>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold-dark sm:text-[11px]">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
             Libro de recuerdos
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:text-5xl">
@@ -542,56 +444,56 @@ function ConfirmAndGuestbookSection({
             Dedicatorias que Dante leerá cuando sea grande para saber cuánto amor lo esperaba desde antes de nacer.
           </p>
 
-          <div className="mt-4 inline-flex items-center gap-3 rounded-full bg-sand/60 px-4 py-1.5 text-xs font-semibold text-gold-dark ring-1 ring-gold/30">
-            <span>🎉 {confirmedCount} confirmados</span>
-            <span>·</span>
-            <span>💌 {messages.length} mensajitos</span>
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-xs sm:text-sm font-semibold text-gold-dark ring-1 ring-gold/30">
+            <span>💌 {messages.length} {messages.length === 1 ? "dedicatoria de amor" : "dedicatorias de amor"}</span>
           </div>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {messages.map((item) => (
-            <div
-              key={item.id}
-              className="paper-grain relative rounded-2xl sm:rounded-3xl bg-ivory/95 p-5 sm:p-6 shadow-sm ring-1 ring-gold/20 flex flex-col justify-between transition hover:shadow-md"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h3 className="font-serif text-lg font-semibold text-ink sm:text-xl">
-                      {item.name}
-                    </h3>
-                    <span className="text-[11px] font-display italic text-ink-soft">
-                      {item.relativeTime}
+        {messages.length === 0 ? (
+          <div className="paper-grain rounded-2xl sm:rounded-3xl border border-dashed border-gold/40 bg-ivory/80 p-8 text-center mt-8">
+            <span className="text-3xl">💌</span>
+            <p className="mt-2 font-serif text-lg text-ink">
+              Aún no hay dedicatorias publicadas
+            </p>
+            <p className="mt-1 font-display text-base italic text-ink-soft max-w-sm mx-auto">
+              Sé la primera persona en dejarle una dedicatoria de amor a Dante. Completá el formulario de arriba y tu mensaje aparecerá aquí ♡
+            </p>
+          </div>
+        ) : (
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {messages.map((item) => (
+              <div
+                key={item.id}
+                className="paper-grain relative rounded-2xl sm:rounded-3xl bg-ivory/95 p-5 sm:p-6 shadow-sm ring-1 ring-gold/20 flex flex-col justify-between transition hover:shadow-md"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-serif text-lg font-semibold text-ink sm:text-xl">
+                        {item.name}
+                      </h3>
+                      <span className="text-xs font-display italic text-ink-soft">
+                        {item.relativeTime}
+                      </span>
+                    </div>
+
+                    <span className="rounded-full bg-sky/20 px-3 py-1 text-xs font-semibold text-sky-deep whitespace-nowrap">
+                      💙 ¡Confirmó asistencia!
                     </span>
                   </div>
 
-                  {item.attending === "si" ? (
-                    <span className="rounded-full bg-sky/20 px-2.5 py-1 text-[11px] font-semibold text-sky-deep whitespace-nowrap">
-                      💙 ¡Confirmado! ({item.guests})
-                    </span>
-                  ) : item.attending === "talvez" ? (
-                    <span className="rounded-full bg-gold/20 px-2.5 py-1 text-[11px] font-semibold text-gold-dark whitespace-nowrap">
-                      ✨ Hace fuerza
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-rose/20 px-2.5 py-1 text-[11px] font-semibold text-rose whitespace-nowrap">
-                      🤍 De corazón
-                    </span>
-                  )}
+                  <p className="mt-3.5 font-display text-base leading-relaxed text-ink italic">
+                    “{item.message}”
+                  </p>
                 </div>
 
-                <p className="mt-3.5 font-display text-base leading-relaxed text-ink italic">
-                  “{item.message}”
-                </p>
+                <div className="mt-4 flex items-center justify-end text-xs uppercase tracking-wider text-gold-dark/60">
+                  <span>Con todo el corazón</span>
+                </div>
               </div>
-
-              <div className="mt-4 flex items-center justify-end text-[10px] uppercase tracking-wider text-gold-dark/60">
-                <span>Con todo el corazón</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
@@ -601,7 +503,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
   return (
     <nav
       aria-label="Acciones rápidas del Baby Shower"
-      className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory/95 px-2.5 py-2 shadow-xl shadow-ink/15 backdrop-blur-md max-w-[94vw] select-none animate-fade-up"
+      className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 sm:gap-2.5 rounded-full border border-gold/35 bg-ivory/95 px-3 py-2 shadow-xl shadow-ink/15 backdrop-blur-md max-w-[96vw] select-none animate-fade-up pb-[max(0.5rem,env(safe-area-inset-bottom))]"
     >
       <button
         type="button"
@@ -609,7 +511,8 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
         className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-rose to-[#d4909b] px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
       >
         <span>💌</span>
-        <span>Confirmar asistencia</span>
+        <span className="hidden sm:inline">Confirmar asistencia</span>
+        <span className="sm:hidden">Confirmar</span>
       </button>
 
       <button
@@ -618,11 +521,25 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
         className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
       >
         <span>✨</span>
-        <span>Muro de amor</span>
-        <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[10px] font-bold text-gold-dark">
-          {totalMessages}
-        </span>
+        <span className="hidden sm:inline">Muro de amor</span>
+        <span className="sm:hidden">Muro</span>
+        {totalMessages > 0 && (
+          <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[11px] font-bold text-gold-dark">
+            {totalMessages}
+          </span>
+        )}
       </button>
+
+      <a
+        href={whatsappUrl()}
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-1.5 rounded-full bg-[#25D366] px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-95 cursor-pointer whitespace-nowrap"
+      >
+        <span>💬</span>
+        <span className="hidden sm:inline">Compartir por WhatsApp</span>
+        <span className="sm:hidden">Compartir</span>
+      </a>
     </nav>
   );
 }
@@ -637,7 +554,7 @@ export default function Invitation() {
     } catch {
       /* ignore */
     }
-    return SEED_MESSAGES;
+    return [];
   });
 
   const handleAddMessage = (newMsg: GuestMessage) => {
@@ -655,10 +572,10 @@ export default function Invitation() {
   return (
     <div className="relative z-10 pb-28 sm:pb-32">
       <header className="px-4 pb-4 pt-8 text-center sm:pb-6 sm:pt-10 animate-fade-up">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-gold-dark sm:text-[11px] sm:tracking-[0.4em]">
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-gold-dark">
           Giuliana & Dante
         </p>
-        <p className="mt-1 font-script text-2xl text-ink sm:mt-2 sm:text-3xl">Una celebración de amor</p>
+        <p className="mt-1 font-script text-3xl text-ink sm:mt-2 sm:text-4xl">Una celebración de amor</p>
       </header>
 
       <section className="px-3 sm:px-4 animate-pop">
@@ -676,7 +593,7 @@ export default function Invitation() {
           className="h-56 w-full rounded-2xl object-cover shadow-lg ring-4 ring-ivory sm:h-72 sm:rounded-[28px]"
         />
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-dark sm:text-[11px] sm:tracking-[0.3em]">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
             La historia
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Un principito llamado Dante</h2>
@@ -736,19 +653,19 @@ export default function Invitation() {
 
       <section id="seccion-itinerario" className="mx-auto mt-14 grid max-w-4xl items-center gap-6 px-4 sm:mt-20 sm:gap-8 md:grid-cols-2 scroll-mt-6">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-dark sm:text-[11px] sm:tracking-[0.3em]">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark">
             El plan
           </p>
           <h2 className="mt-1 font-script text-4xl text-ink sm:mt-2 sm:text-5xl">Cómo va a ser el día</h2>
           <ul className="mt-5 space-y-3.5 sm:mt-6 sm:space-y-4">
             {ITINERARY.map((item) => (
               <li key={item.time} className="flex gap-3 sm:gap-4">
-                <span className="w-14 shrink-0 pt-0.5 font-serif text-sm font-semibold text-gold-dark sm:w-16">
+                <span className="w-14 shrink-0 pt-0.5 font-serif text-base font-semibold text-gold-dark sm:w-16">
                   {item.time}
                 </span>
                 <span>
                   <span className="block font-serif text-base text-ink sm:text-lg">{item.title}</span>
-                  <span className="font-display text-sm text-ink-soft sm:text-base">{item.note}</span>
+                  <span className="font-display text-base text-ink-soft">{item.note}</span>
                 </span>
               </li>
             ))}
@@ -785,7 +702,7 @@ export default function Invitation() {
           ].map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-ivory px-3.5 py-1.5 font-display text-xs text-ink ring-1 ring-gold/25 shadow-xs sm:px-4 sm:py-2 sm:text-sm"
+              className="rounded-full bg-ivory px-4 py-2 font-display text-sm text-ink ring-1 ring-gold/25 shadow-xs"
             >
               {tag}
             </span>
@@ -811,7 +728,7 @@ export default function Invitation() {
             href={mapsUrl()}
             target="_blank"
             rel="noreferrer"
-            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-sky px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto sm:text-base"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-sky px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto"
           >
             <span>📍</span> Abrir en Google Maps
           </a>
@@ -819,7 +736,7 @@ export default function Invitation() {
             href={calendarUrl()}
             target="_blank"
             rel="noreferrer"
-            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto sm:text-base"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto"
           >
             <span>📅</span> Agendar en el celu
           </a>
@@ -827,7 +744,7 @@ export default function Invitation() {
             href={whatsappUrl()}
             target="_blank"
             rel="noreferrer"
-            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto sm:text-base"
+            className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:brightness-105 active:scale-[0.98] sm:w-auto"
           >
             <span>💬</span> Compartir por WhatsApp
           </a>
@@ -849,10 +766,10 @@ export default function Invitation() {
           className="mx-auto h-16 w-16 rounded-full object-cover shadow animate-wiggle sm:h-20 sm:w-20"
         />
         <p className="mt-4 font-script text-3xl text-ink sm:mt-5 sm:text-4xl">Con amor, Giuliana</p>
-        <p className="mt-1 font-display text-sm italic text-ink-soft sm:text-base">
+        <p className="mt-1 font-display text-base italic text-ink-soft">
           y un tal Dante que todavía no habla, pero ya manda besos.
         </p>
-        <p className="mt-5 text-[10px] uppercase tracking-[0.3em] text-gold-dark sm:mt-6 sm:text-[11px]">
+        <p className="mt-5 text-xs font-semibold uppercase tracking-[0.3em] text-gold-dark">
           10 · 10 · 2026
         </p>
       </footer>

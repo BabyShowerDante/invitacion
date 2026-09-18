@@ -17,7 +17,7 @@ export default function App() {
     window.setTimeout(() => {
       setConfetti(true);
       setStage("open");
-    }, 1650);
+    }, 1150);
   };
 
   useEffect(() => {
