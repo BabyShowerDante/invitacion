@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   babyFeet,
   floralCorner,
@@ -48,7 +48,7 @@ function useCountdown(target: Date) {
 }
 
 function Countdown() {
-  const target = useMemo(() => new Date("2026-10-10T16:00:00-03:00"), []);
+  const target = useMemo(() => new Date("2026-10-10T13:00:00-03:00"), []);
   const t = useCountdown(target);
   const units = [
     { label: "días", value: t.days },
@@ -151,7 +151,7 @@ function InviteCard() {
               Cuándo
             </p>
             <p className="mt-1 font-serif text-lg text-ink">Sábado 10 de octubre</p>
-            <p className="font-display text-ink-soft">2026 · 16:00 hs</p>
+            <p className="font-display text-ink-soft">2026 · 1:00 PM</p>
           </div>
           <div className="gold-line" />
           <div>
@@ -159,7 +159,7 @@ function InviteCard() {
               Dónde
             </p>
             <p className="mt-1 font-serif text-lg text-ink">Juan B. Justo 8917</p>
-            <p className="font-display text-ink-soft">Traé el corazón (y ganas de merendar)</p>
+            <p className="font-display text-ink-soft">Traé el corazón (y ganas de celebrar)</p>
           </div>
         </div>
 
@@ -193,133 +193,6 @@ function Detail({
   );
 }
 
-type RsvpStatus = "idle" | "sent";
-
-function RSVP() {
-  const [status, setStatus] = useState<RsvpStatus>("idle");
-  const [name, setName] = useState("");
-  const [guests, setGuests] = useState("1");
-  const [coming, setComing] = useState<"si" | "talvez" | "no">("si");
-  const [note, setNote] = useState("");
-
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) return;
-    const payload = { name: name.trim(), guests, coming, note, at: new Date().toISOString() };
-    try {
-      const prev = JSON.parse(localStorage.getItem("dante-rsvp") || "[]");
-      localStorage.setItem("dante-rsvp", JSON.stringify([payload, ...prev]));
-    } catch {
-      /* ignore */
-    }
-    setStatus("sent");
-  };
-
-  if (status === "sent") {
-    return (
-      <div className="paper-grain mx-auto max-w-md rounded-[28px] bg-ivory px-8 py-10 text-center shadow-md ring-1 ring-gold/20 animate-pop">
-        <img
-          src={teddyBalloon}
-          alt="Osito con globito"
-          className="mx-auto h-28 w-28 rounded-full object-cover shadow"
-        />
-        <h3 className="mt-5 font-script text-5xl text-ink">¡Anotado con amor!</h3>
-        <p className="mt-3 font-display text-lg text-ink-soft">
-          {coming === "si" &&
-            `${name.trim()}, Dante ya apuntó tu nombre con su patita. ¡Te esperamos!`}
-          {coming === "talvez" &&
-            `${name.trim()}, igual te guardamos un lugarcito. ¡Ojalá puedas!`}
-          {coming === "no" &&
-            `${name.trim()}, te vamos a extrañar… pero Dante manda un beso enorme igual.`}
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <form
-      onSubmit={submit}
-      className="paper-grain mx-auto max-w-md space-y-4 rounded-[28px] bg-ivory p-6 shadow-md ring-1 ring-gold/20 sm:p-8"
-    >
-      <div>
-        <label className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-dark">
-          Tu nombre
-        </label>
-        <input
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Como te dice Giuliana"
-          className="w-full rounded-2xl border border-gold/25 bg-cream/60 px-4 py-3 text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
-        />
-      </div>
-
-      <div>
-        <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-dark">
-          ¿Venís?
-        </p>
-        <div className="grid grid-cols-3 gap-2">
-          {(
-            [
-              { id: "si", label: "¡Obvio!" },
-              { id: "talvez", label: "Hago fuerza" },
-              { id: "no", label: "No llego" },
-            ] as const
-          ).map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              onClick={() => setComing(opt.id)}
-              className={`rounded-2xl px-2 py-3 text-sm font-semibold transition ${
-                coming === opt.id
-                  ? "bg-sky text-white shadow-sm"
-                  : "bg-cream text-ink-soft ring-1 ring-gold/20 hover:bg-sand"
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <label className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-dark">
-          ¿Cuántos vienen?
-        </label>
-        <select
-          value={guests}
-          onChange={(e) => setGuests(e.target.value)}
-          className="w-full rounded-2xl border border-gold/25 bg-cream/60 px-4 py-3 text-ink outline-none focus:ring-2 focus:ring-gold/40"
-        >
-          <option value="1">1 — solo yo</option>
-          <option value="2">2 — voy con alguien</option>
-          <option value="3">3 personitas</option>
-          <option value="4">4 o más · ¡familia completa!</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-dark">
-          Un mensajito para Dante
-        </label>
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          rows={3}
-          placeholder="Bienvenido al mundo, príncipe…"
-          className="w-full resize-none rounded-2xl border border-gold/25 bg-cream/60 px-4 py-3 text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="w-full rounded-full bg-gradient-to-r from-rose to-[#d4909b] py-3.5 font-semibold text-white shadow-md shadow-rose/30 transition hover:brightness-105"
-      >
-        Confirmar con el corazón
-      </button>
-    </form>
-  );
-}
 
 function calendarUrl() {
   const text = encodeURIComponent("Baby Shower de Dante");
@@ -327,7 +200,7 @@ function calendarUrl() {
     "Giuliana te invita a celebrar la llegada de Dante. ¡No faltes!",
   );
   const loc = encodeURIComponent("Juan B. Justo 8917");
-  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=20261010T160000/20261010T200000&ctz=America/Argentina/Buenos_Aires&details=${details}&location=${loc}`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=20261010T130000/20261010T170000&ctz=America/Argentina/Buenos_Aires&details=${details}&location=${loc}`;
 }
 
 function mapsUrl() {
@@ -336,16 +209,16 @@ function mapsUrl() {
 
 function whatsappUrl() {
   const t = encodeURIComponent(
-    "¡Estoy invitada/o al Baby Shower de Dante! 💙\nSábado 10 de octubre 2026 · 16 hs\nJuan B. Justo 8917\nGiuliana te espera con el corazón lleno.",
+    "¡Estoy invitada/o al Baby Shower de Dante! 💙\nSábado 10 de octubre 2026 · 1:00 PM\nJuan B. Justo 8917\nGiuliana te espera con el corazón lleno.",
   );
   return `https://wa.me/?text=${t}`;
 }
 
 const ITINERARY = [
-  { time: "16:00", title: "Recibimiento", note: "Un brindis y mil abrazos." },
-  { time: "16:30", title: "Juegos y risas", note: "Prepará el sentido del humor." },
-  { time: "17:30", title: "Mesa dulce", note: "Facturas, cake y tentaciones." },
-  { time: "18:30", title: "Mimos para Dante", note: "El momentito de los regalitos." },
+  { time: "13:00", title: "Recibimiento", note: "Un brindis y mil abrazos." },
+  { time: "13:30", title: "Juegos y risas", note: "Prepará el sentido del humor." },
+  { time: "14:30", title: "Mesa dulce", note: "Facturas, cake y tentaciones." },
+  { time: "15:30", title: "Mimos para Dante", note: "El momentito de los regalitos." },
 ];
 
 export default function Invitation() {
@@ -383,7 +256,7 @@ export default function Invitation() {
             mamá… y ahora quiere conocerte a vos.
           </p>
           <p className="mt-3 font-display text-lg leading-relaxed text-ink-soft">
-            Por eso armamos esta merienda tierna, divertida y llena de globitos:
+            Por eso armamos este festejo tierno, divertido y lleno de globitos:
             para celebrarlo entre las personas que más queremos.
           </p>
         </div>
@@ -395,7 +268,7 @@ export default function Invitation() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <Detail icon="📅" title="El día">
             Sábado 10 de octubre de 2026. Un sábado de sol, torta y
-            emoción. Llegá desde las 16:00… o 16:15, somos argentinos.
+            emoción. Llegá desde la 1:00 PM (13:00 hs)… o 13:15, somos argentinos.
           </Detail>
           <Detail icon="📍" title="El lugar">
             Juan B. Justo 8917. Si te perdés, preguntá por el baby shower de
@@ -519,13 +392,6 @@ export default function Invitation() {
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-3xl px-4">
-        <h2 className="text-center font-script text-5xl text-ink">¿Venís a celebrar?</h2>
-        <p className="mx-auto mt-3 mb-8 max-w-md text-center font-display text-lg text-ink-soft">
-          Confirmá así Dante sabe cuántos cachetes va a tener que repartir.
-        </p>
-        <RSVP />
-      </section>
 
       <footer className="mx-auto mt-20 max-w-lg px-4 text-center">
         <img
