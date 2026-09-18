@@ -517,7 +517,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
         >
           <span>💌</span>
           <span className="hidden sm:inline">Confirmar y dejar mensajito en el muro</span>
-          <span className="sm:hidden">Confirmar y dejar mensajito</span>
+          <span className="sm:hidden">Confirmar</span>
         </button>
 
         <button
@@ -526,8 +526,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
           className="flex items-center gap-1.5 rounded-full bg-sand/60 px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-ink ring-1 ring-gold/25 transition hover:bg-sand active:scale-95 cursor-pointer whitespace-nowrap"
         >
           <span>✨</span>
-          <span className="hidden sm:inline">Muro de amor</span>
-          <span className="sm:hidden">Muro</span>
+          <span>Muro de amor</span>
           {totalMessages > 0 && (
             <span className="rounded-full bg-gold/25 px-1.5 py-0.5 text-[11px] font-bold text-gold-dark">
               {totalMessages}
@@ -539,7 +538,7 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
   );
 }
 
-export default function Invitation() {
+export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boolean }) {
   const [messages, setMessages] = useState<GuestMessage[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -769,8 +768,8 @@ export default function Invitation() {
         </p>
       </footer>
 
-      {/* FLOATING ACTION BAR */}
-      <FloatingActionBar totalMessages={messages.length} />
+      {/* FLOATING ACTION BAR — only once the envelope is fully open */}
+      {envelopeOpen && <FloatingActionBar totalMessages={messages.length} />}
     </div>
   );
 }

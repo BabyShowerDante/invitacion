@@ -87,14 +87,17 @@ export default function App() {
 
       {/* Invitation view: mounts during revealing for smooth seamless crossfade */}
       {stage === "revealing" || stage === "open" ? (
+        /* opacity-only fade on purpose: an animated transform here would turn this
+           div into the containing block for the invitation's position:fixed action
+           bar, which would then scroll away with the content instead of floating. */
         <div
           className={
             stage === "revealing"
-              ? "animate-fade-up pointer-events-none"
-              : "animate-fade-up"
+              ? "animate-fade-in pointer-events-none"
+              : "animate-fade-in"
           }
         >
-          <Invitation />
+          <Invitation envelopeOpen={stage === "open"} />
         </div>
       ) : null}
     </div>
