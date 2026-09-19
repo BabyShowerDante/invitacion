@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { heroDream, stork, teddyBalloon } from "../assets/images";
+import { fetchRemoteMessages, pushMessage, relativeTime } from "../lib/guestbook";
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -285,10 +286,31 @@ export type GuestMessage = {
   name: string;
   message: string;
   createdAt: string;
-  relativeTime: string;
 };
 
+/* localStorage guarda SOLO los mensajes escritos en este navegador. El muro que
+   ven todas sale de la planilla compartida (ver src/lib/guestbook.ts). */
 const STORAGE_KEY = "dante_guestbook_messages";
+/* Ids propios que ya llegaron a la planilla. Evita re-subir un mensaje que
+   Giuliana haya borrado a mano de la hoja. */
+const SYNCED_KEY = "dante_guestbook_synced";
+
+function readJson<T>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJson(key: string, value: unknown) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    /* ignore */
+  }
+}
 
 function ConfirmAndGuestbookSection({
   messages,
@@ -306,11 +328,10 @@ function ConfirmAndGuestbookSection({
     if (!name.trim() || !note.trim()) return;
 
     const newMsg: GuestMessage = {
-      id: "msg-" + Date.now(),
+      id: "msg-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
       name: name.trim(),
       message: note.trim(),
       createdAt: new Date().toISOString(),
-      relativeTime: "Recién",
     };
 
     onAddMessage(newMsg);
@@ -448,7 +469,7 @@ function ConfirmAndGuestbookSection({
                         {item.name}
                       </h3>
                       <span className="text-[13px] font-display italic text-ink-soft">
-                        {item.relativeTime}
+                        {relativeTime(item.createdAt)}
                       </span>
                     </div>
 
@@ -506,28 +527,54 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
 }
 
 export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boolean }) {
-  const [messages, setMessages] = useState<GuestMessage[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        return JSON.parse(saved);
-      }
-    } catch {
-      /* ignore */
+  const [messages, setMessages] = useState<GuestMessage[]>(() =>
+    readJson<GuestMessage[]>(STORAGE_KEY, []),
+  );
+
+  /* Sube lo propio que todavia no llego a la planilla (incluye los mensajes
+     que quedaron atrapados en el telefono antes de que existiera el muro
+     compartido) y despues trae el muro completo. Si no hay conexion no pasa
+     nada: se reintenta en la proxima visita o al volver a la pestaña. */
+  const sync = useCallback(async () => {
+    const own = readJson<GuestMessage[]>(STORAGE_KEY, []);
+    const synced = new Set(readJson<string[]>(SYNCED_KEY, []));
+
+    for (const m of own) {
+      if (synced.has(m.id)) continue;
+      const ok = await pushMessage({
+        id: m.id,
+        name: m.name,
+        message: m.message,
+        createdAt: m.createdAt,
+      });
+      if (ok) synced.add(m.id);
     }
-    return [];
-  });
+    writeJson(SYNCED_KEY, [...synced]);
+
+    const remote = await fetchRemoteMessages();
+    if (!remote) return;
+    const remoteIds = new Set(remote.map((m) => m.id));
+    const pending = own.filter((m) => !remoteIds.has(m.id));
+    setMessages(
+      [...pending, ...remote].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
+    );
+  }, []);
+
+  useEffect(() => {
+    void sync();
+    const onVisible = () => {
+      if (document.visibilityState === "visible") void sync();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [sync]);
 
   const handleAddMessage = (newMsg: GuestMessage) => {
-    setMessages((prev) => {
-      const updated = [newMsg, ...prev];
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      } catch {
-        /* ignore */
-      }
-      return updated;
-    });
+    writeJson(STORAGE_KEY, [newMsg, ...readJson<GuestMessage[]>(STORAGE_KEY, [])]);
+    setMessages((prev) => [newMsg, ...prev]);
+    void sync();
   };
 
   return (
