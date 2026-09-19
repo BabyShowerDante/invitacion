@@ -5,7 +5,8 @@
 
    Pegar aca la URL que entrega "Implementar > Nueva implementacion".
    Mientras quede vacia, el muro funciona solo en el navegador de cada persona. */
-const DEPLOYED_URL = "";
+const DEPLOYED_URL =
+  "https://script.google.com/macros/s/AKfycbypiPcZifkEraMeu-m6YKTVGXkehKb2_ba8tPvtEH8JQQF1AebzvsyT-Rn1vWgwje6v/exec";
 
 export const GUESTBOOK_URL: string =
   (import.meta.env.VITE_GUESTBOOK_URL as string | undefined) || DEPLOYED_URL;
