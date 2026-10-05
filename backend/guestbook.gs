@@ -16,7 +16,7 @@
 
 var SHEET_NAME = 'Mensajes';
 var MAX_NAME = 80;
-var MAX_MESSAGE = 600;
+var MAX_MESSAGE = 2000;
 var MAX_ROWS = 3000;
 
 function getSheet_() {

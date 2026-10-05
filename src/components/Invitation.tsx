@@ -293,6 +293,8 @@ export type GuestMessage = {
 const STORAGE_KEY = "dante_guestbook_messages";
 /* Ids propios que ya llegaron a la planilla. Evita re-subir un mensaje que
    Giuliana haya borrado a mano de la hoja. */
+/* Debe coincidir con MAX_MESSAGE en backend/guestbook.gs. */
+const MAX_MESSAGE = 2000;
 const SYNCED_KEY = "dante_guestbook_synced";
 
 function readJson<T>(key: string, fallback: T): T {
@@ -408,12 +410,16 @@ function ConfirmAndGuestbookSection({
               </label>
               <textarea
                 required
-                rows={3}
+                rows={4}
+                maxLength={MAX_MESSAGE}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
                 placeholder="Te esperamos, Dante."
                 className="w-full resize-none rounded-2xl border border-gold/25 bg-cream/70 px-4 py-3 text-base text-ink outline-none ring-gold/40 placeholder:text-ink-soft/50 focus:ring-2"
               />
+              <p className="mt-1 text-right text-[13px] text-ink-soft">
+                {note.length} / {MAX_MESSAGE}
+              </p>
             </div>
 
             <button
@@ -478,7 +484,7 @@ function ConfirmAndGuestbookSection({
                     </span>
                   </div>
 
-                  <p className="mt-3.5 font-display text-xl leading-relaxed text-ink italic">
+                  <p className="mt-3.5 whitespace-pre-line break-words font-display text-xl leading-relaxed text-ink italic">
                     “{item.message}”
                   </p>
                 </div>
