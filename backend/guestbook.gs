@@ -44,7 +44,19 @@ function clean_(value, max) {
   return /^[=+\-@]/.test(s) ? "'" + s : s;
 }
 
+var CACHE_KEY = 'muro_json';
+var CACHE_SECONDS = 60;
+
 function doGet() {
+  // Leer la planilla es lo lento. Con la respuesta en cache la mayoria de las
+  // visitas no la tocan. doPost y los cambios manuales la invalidan: ver abajo.
+  var cache = CacheService.getScriptCache();
+  var hit = cache.get(CACHE_KEY);
+  if (hit) {
+    return ContentService.createTextOutput(hit)
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
   var rows = getSheet_().getDataRange().getValues().slice(1);
   var out = [];
   for (var i = rows.length - 1; i >= 0; i--) {
@@ -57,7 +69,12 @@ function doGet() {
       createdAt: r[0] instanceof Date ? r[0].toISOString() : String(r[0])
     });
   }
-  return json_(out);
+  var body = JSON.stringify(out);
+  // CacheService admite hasta ~100 KB por clave; si el muro creciera mas que
+  // eso simplemente no se cachea y sigue funcionando como antes.
+  if (body.length < 90000) cache.put(CACHE_KEY, body, CACHE_SECONDS);
+  return ContentService.createTextOutput(body)
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function doPost(e) {
@@ -83,6 +100,7 @@ function doPost(e) {
     var when = new Date(d.createdAt);
     if (isNaN(when.getTime())) when = new Date();
     sh.appendRow([when, name, message, id]);
+    CacheService.getScriptCache().remove(CACHE_KEY);
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });

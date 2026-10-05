@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { heroDream, stork, teddyBalloon } from "../assets/images";
-import { fetchRemoteMessages, pushMessage, relativeTime } from "../lib/guestbook";
+import {
+  fetchRemoteMessages,
+  pushMessage,
+  readCachedWall,
+  relativeTime,
+  GUESTBOOK_URL,
+} from "../lib/guestbook";
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
@@ -306,6 +312,15 @@ function readJson<T>(key: string, fallback: T): T {
   }
 }
 
+/* Une muro remoto + mensajes propios que aun no llegaron, sin duplicar, el mas
+   nuevo primero. */
+function mergeWall(remote: GuestMessage[], own: GuestMessage[]): GuestMessage[] {
+  const seen = new Set(remote.map((m) => m.id));
+  return [...own.filter((m) => !seen.has(m.id)), ...remote].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
+}
+
 function writeJson(key: string, value: unknown) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
@@ -314,11 +329,17 @@ function writeJson(key: string, value: unknown) {
   }
 }
 
+type WallStatus = "loading" | "ready" | "error";
+
 function ConfirmAndGuestbookSection({
   messages,
+  status,
+  onRetry,
   onAddMessage,
 }: {
   messages: GuestMessage[];
+  status: WallStatus;
+  onRetry: () => void;
   onAddMessage: (msg: GuestMessage) => void;
 }) {
   const [name, setName] = useState("");
@@ -447,20 +468,48 @@ function ConfirmAndGuestbookSection({
           </p>
 
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-sand/60 px-4 py-1.5 text-[13px] sm:text-sm font-semibold text-gold-dark ring-1 ring-gold/30">
-            <span>💌 {messages.length} {messages.length === 1 ? "mensaje" : "mensajes"}</span>
+            <span>
+              💌{" "}
+              {messages.length === 0 && status === "loading"
+                ? "Cargando mensajes…"
+                : `${messages.length} ${messages.length === 1 ? "mensaje" : "mensajes"}`}
+            </span>
           </div>
         </div>
 
-        {messages.length === 0 ? (
-          <div className="paper-grain rounded-2xl sm:rounded-3xl border border-dashed border-gold/40 bg-ivory/80 p-8 text-center mt-8">
-            <span className="text-3xl">💌</span>
-            <p className="mt-2 font-serif text-lg text-ink">
-              Todavía no hay mensajes
+        {status === "error" && (
+          <div className="mx-auto mt-6 max-w-md rounded-2xl bg-sand/60 p-4 text-center ring-1 ring-gold/25">
+            <p className="font-display text-xl text-ink-soft">
+              No pudimos actualizar el muro.
             </p>
-            <p className="mt-1 font-display text-xl italic text-ink-soft max-w-sm mx-auto">
-              Dejá el primero desde el formulario de arriba.
-            </p>
+            <button
+              type="button"
+              onClick={onRetry}
+              className="mt-2 min-h-[44px] cursor-pointer rounded-full bg-gold px-5 py-2 text-sm font-semibold text-white shadow-sm active:scale-95"
+            >
+              Reintentar
+            </button>
           </div>
+        )}
+
+        {messages.length === 0 ? (
+          status === "loading" ? (
+            <div className="mt-8 grid gap-4 sm:grid-cols-2" aria-hidden>
+              {[0, 1].map((i) => (
+                <div key={i} className="h-32 animate-pulse rounded-2xl bg-ivory/70 ring-1 ring-gold/15 sm:rounded-3xl" />
+              ))}
+            </div>
+          ) : status === "ready" ? (
+            <div className="paper-grain rounded-2xl sm:rounded-3xl border border-dashed border-gold/40 bg-ivory/80 p-8 text-center mt-8">
+              <span className="text-3xl">💌</span>
+              <p className="mt-2 font-serif text-lg text-ink">
+                Todavía no hay mensajes
+              </p>
+              <p className="mt-1 font-display text-xl italic text-ink-soft max-w-sm mx-auto">
+                Dejá el primero desde el formulario de arriba.
+              </p>
+            </div>
+          ) : null
         ) : (
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {messages.map((item) => (
@@ -469,18 +518,12 @@ function ConfirmAndGuestbookSection({
                 className="paper-grain relative rounded-2xl sm:rounded-3xl bg-ivory/95 p-5 sm:p-6 shadow-sm ring-1 ring-gold/20 flex flex-col justify-between transition-transform hover:-translate-y-0.5"
               >
                 <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <h3 className="font-serif text-lg font-semibold text-ink sm:text-xl">
-                        {item.name}
-                      </h3>
-                      <span className="text-[13px] font-display italic text-ink-soft">
-                        {relativeTime(item.createdAt)}
-                      </span>
-                    </div>
-
-                    <span className="rounded-full bg-sky/20 px-3 py-1 text-[13px] font-semibold text-sky-deep whitespace-nowrap">
-                      Confirmó
+                  <div>
+                    <h3 className="font-serif text-lg font-semibold text-ink sm:text-xl">
+                      {item.name}
+                    </h3>
+                    <span className="text-[13px] font-display italic text-ink-soft">
+                      {relativeTime(item.createdAt)}
                     </span>
                   </div>
 
@@ -533,39 +576,57 @@ function FloatingActionBar({ totalMessages }: { totalMessages: number }) {
 }
 
 export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boolean }) {
+  /* Se pinta de inmediato lo ultimo que se vio (cache) mas lo propio, y despues
+     se actualiza con lo que responda el script. */
   const [messages, setMessages] = useState<GuestMessage[]>(() =>
-    readJson<GuestMessage[]>(STORAGE_KEY, []),
+    mergeWall(readCachedWall(), readJson<GuestMessage[]>(STORAGE_KEY, [])),
   );
+  const [status, setStatus] = useState<WallStatus>(GUESTBOOK_URL ? "loading" : "ready");
 
   /* Sube lo propio que todavia no llego a la planilla (incluye los mensajes
      que quedaron atrapados en el telefono antes de que existiera el muro
      compartido) y despues trae el muro completo. Si no hay conexion no pasa
      nada: se reintenta en la proxima visita o al volver a la pestaña. */
   const sync = useCallback(async () => {
-    const own = readJson<GuestMessage[]>(STORAGE_KEY, []);
-    const synced = new Set(readJson<string[]>(SYNCED_KEY, []));
+    if (!GUESTBOOK_URL) return;
+    const own = () => readJson<GuestMessage[]>(STORAGE_KEY, []);
 
-    for (const m of own) {
-      if (synced.has(m.id)) continue;
+    /* 1) Primero el muro: es lo que la visita espera ver. Antes se subian los
+       pendientes uno por uno ANTES de pedirlo y cada subida tarda ~2 s. */
+    let remote = await fetchRemoteMessages();
+    if (!remote) {
+      setStatus("error");
+      return;
+    }
+    setMessages(mergeWall(remote, own()));
+    setStatus("ready");
+
+    /* 2) Despues, en segundo plano, lo propio que todavia no llego. */
+    const synced = new Set(readJson<string[]>(SYNCED_KEY, []));
+    const remoteIds = new Set(remote.map((m) => m.id));
+    let pushed = false;
+    for (const m of own()) {
+      if (synced.has(m.id) || remoteIds.has(m.id)) {
+        synced.add(m.id);
+        continue;
+      }
       const ok = await pushMessage({
         id: m.id,
         name: m.name,
         message: m.message,
         createdAt: m.createdAt,
       });
-      if (ok) synced.add(m.id);
+      if (ok) {
+        synced.add(m.id);
+        pushed = true;
+      }
     }
     writeJson(SYNCED_KEY, [...synced]);
 
-    const remote = await fetchRemoteMessages();
-    if (!remote) return;
-    const remoteIds = new Set(remote.map((m) => m.id));
-    const pending = own.filter((m) => !remoteIds.has(m.id));
-    setMessages(
-      [...pending, ...remote].sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      ),
-    );
+    if (pushed) {
+      remote = await fetchRemoteMessages();
+      if (remote) setMessages(mergeWall(remote, own()));
+    }
   }, []);
 
   useEffect(() => {
@@ -576,6 +637,11 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
   }, [sync]);
+
+  const retry = () => {
+    setStatus("loading");
+    void sync();
+  };
 
   const handleAddMessage = (newMsg: GuestMessage) => {
     writeJson(STORAGE_KEY, [newMsg, ...readJson<GuestMessage[]>(STORAGE_KEY, [])]);
@@ -729,6 +795,8 @@ export default function Invitation({ envelopeOpen = true }: { envelopeOpen?: boo
       <div className="mt-16 sm:mt-24">
         <ConfirmAndGuestbookSection
           messages={messages}
+          status={status}
+          onRetry={retry}
           onAddMessage={handleAddMessage}
         />
       </div>
